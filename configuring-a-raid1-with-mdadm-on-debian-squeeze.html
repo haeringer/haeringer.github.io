@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="">	
+<head>
+	<meta charset="utf-8"/>
+	<title>Configuring a RAID1 with mdadm on Debian Squeeze - kb</title>	
+	<meta name="author" content="ben">
+	
+
+	<meta name="description" content="Generally I have always thought software raids to be insecure, difficult to handle and more a risk than a safety measure. But a RAID1 with the Linux software mdadm is a safe mirror of your harddisk - in case of a HD failure, you can put the remaining disk into any ...">
+
+
+	<link rel="top" href="#" /><link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,300italic,400italic,600italic|Source+Code+Pro' rel='stylesheet' type='text/css'></link>
+	<link rel="stylesheet" href="/theme/css/main.css" type="text/css" />
+		
+
+</head>
+	
+<body>
+
+    <div class="container">
+	  
+	  <header role="banner">
+	    <div class="feeds">
+	    </div>
+		<a href="" class="title">kb</a>
+      </header>
+	
+	  <div class="wrapper">
+
+		  <div role="main" class="content">
+	<article class="full">
+			
+		<h1>Configuring a RAID1 with mdadm on Debian Squeeze</h1>
+		
+<div class="metadata">
+  <time datetime="2011-09-20T15:11:00" pubdate>Di 20 September 2011</time>
+    <address class="vcard author">
+      by <a class="url fn" href="/author/ben.html">ben</a>
+    </address>
+  in <a href="/category/linux.html">Linux</a>
+<p class="tags">tagged <a href="/tag/debian.html">Debian</a>, <a href="/tag/raid.html">RAID</a></p></div>		
+		<p>Generally I have always thought software raids to be insecure, difficult
+to handle and more a risk than a safety measure. But a RAID1 with the
+Linux software <strong>mdadm</strong> is a safe mirror of your harddisk - in case of
+a HD failure, you can put the remaining disk into any computer and boot
+from it. And it's easy to handle. One way to configure it on Debian is
+with the Debian installer during the OS installation, which will be
+described here.</p>
+<p>First, a brief explanation of how software raids work - this is needed
+to understand the installation process. In a hardware raid, devices
+exist as hard disks. In a software raid, those devices are partitions
+that are marked as “Physical volumes for RAID”. Those partitions are
+then combined into a software RAID array. This array contains normal
+partitions as they are present on every normal non-raid hard disk.<br />
+<!--more--><br />
+I wrote this because I think that the setup process is not
+self-explanatory and can be a bit confusing.</p>
+<p>​1. During the Debian installation, choose manual partitioning</p>
+<p>​2. Select the first harddisk (sda) and create a new partition table</p>
+<p>​3. Choose the newly created free space and create new partitions
+(primary), selecting "Use as: physical volume for RAID" for each one.
+This is where you define your own filesystem structure, so the below is
+only an example:<br />
+- First RAID partition of 2-4 GB for the root file system /<br />
+- Second RAID partition for swap, 2 times RAM<br />
+- Third RAID partition for data, rest of HD space</p>
+<p>​4. Select the second hard disk (sdb) and repeat all steps above</p>
+<p>​5. When finished, select "Configure software RAID" and follow the
+on-screen instructions:<br />
+- Create MD device<br />
+- RAID1<br />
+- Number of active devices = 2<br />
+- Spare devices = 0<br />
+- Repeat for active devices = sda1 + sdb1, sda2 + sdb2, sda3 + sdb3<br />
+- Finish</p>
+<p>​6. Back in the partitions overview, select the partition of the first
+RAID device</p>
+<p>​7. Choose "Use as: do not use" from the menu and change it to ext4 (or
+whatever you need) file system, mount point /, done</p>
+<p>​8. For the second RAID partition, change "Use as" to swap area</p>
+<p>​9. For the third one, change to ext4, mount point "Enter manually" and
+name it e.g. /data</p>
+<p>​10. Finish partitioning</p>
+<p>​11. After rebooting, when the installation has finished, verify your
+RAID configuration with cat /proc/mdstat</p>
+<p>Grub2 only gets installed on the first HD, sda, by default. Install
+Grub2 also on the second HD to make it bootable in case HD1 fails:</p>
+<div class="highlight"><pre><span class="n">grub</span><span class="o">-</span><span class="n">install</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sdb</span>
+</pre></div>
+
+
+<p>Done.  </p>
+<p><strong>Harddisk Failure</strong></p>
+<p>If you test your RAID1 by removing one HD and installing it back again;
+your RAID may not come up correct again automatically. Check with
+<code>cat /proc/mdstat</code>. In case of a partially degraded array, fully degrade
+it first:</p>
+<div class="highlight"><pre><span class="n">mdadm</span> <span class="o">--</span><span class="n">manage</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">md0</span> <span class="o">--</span><span class="n">fail</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sdb1</span>
+<span class="n">mdadm</span> <span class="o">--</span><span class="n">manage</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">md1</span> <span class="o">--</span><span class="n">fail</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sdb2</span>
+<span class="n">mdadm</span> <span class="o">--</span><span class="n">manage</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">md2</span> <span class="o">--</span><span class="n">fail</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sdb3</span>
+
+<span class="n">mdadm</span> <span class="o">--</span><span class="n">manage</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">md0</span> <span class="o">--</span><span class="n">remove</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sdb1</span>
+<span class="n">mdadm</span> <span class="o">--</span><span class="n">manage</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">md1</span> <span class="o">--</span><span class="n">remove</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sdb2</span>
+<span class="n">mdadm</span> <span class="o">--</span><span class="n">manage</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">md2</span> <span class="o">--</span><span class="n">remove</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sdb3</span>
+</pre></div>
+
+
+<p>At this point, your system is like having installed a new second HD
+(sdb) after a real failure. If that's the case (i.e. the disk is empty),
+copy the partition table of /dev/sda to /dev/sdb:</p>
+<div class="highlight"><pre><span class="n">sfdisk</span> <span class="o">-</span><span class="n">d</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda</span> <span class="o">|</span> <span class="n">sfdisk</span> <span class="o">--</span><span class="n">force</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sdb</span>
+</pre></div>
+
+
+<p>Afterwards, remove any remains of a previous RAID array from /dev/sdb:</p>
+<div class="highlight"><pre><span class="n">mdadm</span> <span class="o">--</span><span class="n">zero</span><span class="o">-</span><span class="n">superblock</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sdb1</span>
+<span class="n">mdadm</span> <span class="o">--</span><span class="n">zero</span><span class="o">-</span><span class="n">superblock</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sdb2</span>
+<span class="n">mdadm</span> <span class="o">--</span><span class="n">zero</span><span class="o">-</span><span class="n">superblock</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sdb3</span>
+</pre></div>
+
+
+<p>...and add /dev/sdb back to the array:</p>
+<div class="highlight"><pre><span class="n">mdadm</span> <span class="o">-</span><span class="n">a</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">md0</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sdb1</span>
+<span class="n">mdadm</span> <span class="o">-</span><span class="n">a</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">md1</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sdb2</span>
+<span class="n">mdadm</span> <span class="o">-</span><span class="n">a</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">md2</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sdb3</span>
+</pre></div>
+
+
+<p>If there are error messages and you have problems rebuilding the array,
+check the config file /etc/mdadm/mdadm.conf - your array should be
+listed there. If it's not, issue the following command to add it to the
+config file:</p>
+<div class="highlight"><pre><span class="n">mdadm</span> <span class="o">--</span><span class="n">examine</span> <span class="o">--</span><span class="n">scan</span> <span class="o">--</span><span class="n">config</span><span class="o">=</span><span class="n">mdadm</span><span class="p">.</span><span class="n">conf</span> <span class="o">&gt;&gt;</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">mdadm</span><span class="o">/</span><span class="n">mdadm</span><span class="p">.</span><span class="n">conf</span>
+</pre></div>
+
+
+<p>Check the array status with <code>cat /proc/mdstat</code>. After the
+synchronisation has finished, you should have a fully working RAID1
+again.</p>
+<p>One last tip: In case the md1 device of your RAID array is shown as
+"resync=PENDING" and doesn't leave that state anymore (can happen after
+a hard reboot, e.g. because of a power outage), this can easily fixed
+with</p>
+<div class="highlight"><pre><span class="n">mdadm</span> <span class="o">--</span><span class="n">readwrite</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">md1</span>
+</pre></div>	
+
+	</article>
+
+    <p>
+	<a href="https://twitter.com/share" class="twitter-share-button" data-via="" data-lang="en" data-size="large" data-related="">Tweet</a>
+	<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+	</p>
+
+
+		  </div>	
+		  
+		  <div class="sidebar">
+
+	        <nav>
+	          <h2>Categories</h2>
+	          <ul>
+	              <li ><a href="/category/cisco.html">Cisco</a></li>
+	              <li class="active"><a href="/category/linux.html">Linux</a></li>
+	              <li ><a href="/category/linux-networking.html">Linux, Networking</a></li>
+	              <li ><a href="/category/linux-networking-windows.html">Linux, Networking, Windows</a></li>
+	              <li ><a href="/category/linux-virtualization.html">Linux, Virtualization</a></li>
+	              <li ><a href="/category/networking.html">Networking</a></li>
+	              <li ><a href="/category/virtualization.html">Virtualization</a></li>
+	              <li ><a href="/category/windows.html">Windows</a></li>
+	          </ul>
+	        </nav>
+
+
+
+		  </div>
+
+	  </div>
+
+      <footer>
+		<p role="contentinfo">
+		  © 2013 ben - Proudly powered by <a href="http://alexis.notmyidea.org/pelican/">pelican</a>. Theme <a href="https://github.com/fle/pelican-simplegrey">pelican-simplegrey</a>.
+    	</p>
+
+	  </footer>	
+
+	</div>
+	
+
+</body>
+</html>

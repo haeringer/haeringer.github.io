@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="">	
+<head>
+	<meta charset="utf-8"/>
+	<title>MySQL administration commands - kb</title>	
+	<meta name="author" content="ben">
+	
+
+	<meta name="description" content="A small command reference for MySQL administration on Linux. Show MySQL server status: # /etc/init.d/mysql status Location of MySQL configuration files: /etc/my.cnf - global configuration /var/lib/mysql/my.cnf - configuration per database ~/.my.cnf - configuration per user Enter MySQL command line as user root with password ...">
+
+
+	<link rel="top" href="#" /><link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,300italic,400italic,600italic|Source+Code+Pro' rel='stylesheet' type='text/css'></link>
+	<link rel="stylesheet" href="/theme/css/main.css" type="text/css" />
+		
+
+</head>
+	
+<body>
+
+    <div class="container">
+	  
+	  <header role="banner">
+	    <div class="feeds">
+	    </div>
+		<a href="" class="title">kb</a>
+      </header>
+	
+	  <div class="wrapper">
+
+		  <div role="main" class="content">
+	<article class="full">
+			
+		<h1>MySQL administration commands</h1>
+		
+<div class="metadata">
+  <time datetime="2012-02-10T20:54:00" pubdate>Fr 10 Februar 2012</time>
+    <address class="vcard author">
+      by <a class="url fn" href="/author/ben.html">ben</a>
+    </address>
+  in <a href="/category/linux.html">Linux</a>
+<p class="tags">tagged <a href="/tag/command-reference.html">Command reference</a>, <a href="/tag/mysql.html">MySQL</a>, <a href="/tag/sql.html">SQL</a></p></div>		
+		<p>A small command reference for MySQL administration on Linux.<br />
+</p>
+<p>Show MySQL server status:</p>
+<div class="highlight"><pre><span class="c"># /etc/init.d/mysql status</span>
+</pre></div>
+
+
+<p>Location of MySQL configuration files:<br />
+<code>/etc/my.cnf</code> - global configuration<br />
+<code>/var/lib/mysql/my.cnf</code> - configuration per database<br />
+<code>~/.my.cnf</code> - configuration per user</p>
+<p>Enter MySQL command line as user root with password prompt:<!--more--></p>
+<div class="highlight"><pre><span class="c"># mysql -u root -p</span>
+</pre></div>
+
+
+<p>Show MySQL variables / with filter:</p>
+<div class="highlight"><pre><span class="o">&gt;</span> <span class="n">SHOW</span> <span class="n">VARIABLES</span><span class="p">;</span>
+<span class="o">&gt;</span> <span class="n">SHOW</span> <span class="n">VARIABLES</span> <span class="n">LIKE</span> <span class="s">&quot;%version%&quot;</span><span class="p">;</span>
+</pre></div>
+
+
+<p>Show MySQL Version:</p>
+<div class="highlight"><pre><span class="o">&gt;</span> <span class="n">STATUS</span><span class="p">;</span>
+</pre></div>
+
+
+<p>Show databases and switch to a specific db:</p>
+<div class="highlight"><pre><span class="o">&gt;</span> <span class="n">SHOW</span> <span class="n">databases</span><span class="p">;</span>
+<span class="o">&gt;</span> <span class="n">USE</span> <span class="n">mysql</span><span class="p">;</span>
+</pre></div>
+
+
+<p>Show all tables in this or another db:</p>
+<div class="highlight"><pre><span class="o">&gt;</span> <span class="n">SHOW</span> <span class="n">TABLES</span><span class="p">;</span>
+<span class="o">&gt;</span> <span class="n">SHOW</span> <span class="n">TABLES</span> <span class="n">FROM</span> <span class="n">information_schema</span><span class="p">;</span>
+</pre></div>
+
+
+<p>Show contents of a table:</p>
+<div class="highlight"><pre><span class="o">&gt;</span> <span class="n">EXPLAIN</span> <span class="n">tablename</span><span class="p">;</span>
+</pre></div>
+
+
+<p>Show all MySQL users:</p>
+<div class="highlight"><pre><span class="o">&gt;</span> <span class="n">SELECT</span> <span class="n">user</span><span class="p">,</span> <span class="n">password</span><span class="p">,</span> <span class="n">host</span> <span class="n">FROM</span> <span class="n">mysql</span><span class="p">.</span><span class="n">user</span><span class="p">;</span>
+</pre></div>
+
+
+<p>Create a new user and grant specific rights at the same time (flush
+privileges is always necessary after changing something that has to do
+with users and rights):</p>
+<div class="highlight"><pre><span class="o">&gt;</span> <span class="n">GRANT</span> <span class="n">ALL</span> <span class="n">ON</span> <span class="n">db01</span><span class="p">.</span><span class="o">*</span> <span class="n">TO</span> <span class="err">&#39;</span><span class="n">tom</span><span class="sc">&#39;@&#39;</span><span class="n">localhost</span><span class="err">&#39;</span> <span class="n">IDENTIFIED</span> <span class="n">BY</span> <span class="err">&#39;</span><span class="n">pa</span><span class="err">$$</span><span class="n">w0rd</span><span class="err">&#39;</span><span class="p">;</span>
+<span class="o">&gt;</span> <span class="n">FLUSH</span> <span class="n">PRIVILEGES</span><span class="p">;</span>
+</pre></div>
+
+
+<p>Example:</p>
+<div class="highlight"><pre><span class="o">&gt;</span> <span class="n">GRANT</span> <span class="n">SELECT</span> <span class="n">ON</span> <span class="err">`</span><span class="n">ccoxid4</span><span class="err">`</span><span class="p">.</span><span class="err">`</span><span class="n">oxarticles</span><span class="err">`</span> <span class="n">TO</span> <span class="err">&#39;</span><span class="n">appxyuser</span><span class="sc">&#39;@&#39;</span><span class="mf">11.12.13.14</span><span class="err">&#39;</span><span class="p">;</span>
+</pre></div>
+
+
+<p>Show rights of a specific user:</p>
+<div class="highlight"><pre><span class="o">&gt;</span> <span class="n">SHOW</span> <span class="n">GRANTS</span> <span class="n">FOR</span> <span class="err">&#39;</span><span class="n">tom</span><span class="sc">&#39;@&#39;</span><span class="n">localhost</span><span class="err">&#39;</span><span class="p">;</span>
+</pre></div>
+
+
+<p>Delete user:</p>
+<div class="highlight"><pre><span class="o">&gt;</span> <span class="n">DROP</span> <span class="n">USER</span> <span class="n">tom</span><span class="err">@</span><span class="n">localhost</span><span class="p">;</span>
+</pre></div>
+
+
+<p>Create or delete new database:</p>
+<div class="highlight"><pre><span class="o">&gt;</span> <span class="n">CREATE</span> <span class="n">DATABASE</span> <span class="n">dbname</span><span class="p">;</span>
+<span class="o">&gt;</span> <span class="n">DROP</span> <span class="n">DATABASE</span> <span class="n">dbname</span><span class="p">;</span>
+</pre></div>
+
+
+<p>Import database dump (dbname has to be created beforehand):</p>
+<div class="highlight"><pre><span class="c"># mysql -p dbname &lt; dumpfile.sql</span>
+</pre></div>
+
+
+<p>Create database dump:</p>
+<div class="highlight"><pre><span class="c"># mysqldump -p dbname &gt; dbname.sql</span>
+</pre></div>	
+
+	</article>
+
+    <p>
+	<a href="https://twitter.com/share" class="twitter-share-button" data-via="" data-lang="en" data-size="large" data-related="">Tweet</a>
+	<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+	</p>
+
+
+		  </div>	
+		  
+		  <div class="sidebar">
+
+	        <nav>
+	          <h2>Categories</h2>
+	          <ul>
+	              <li ><a href="/category/cisco.html">Cisco</a></li>
+	              <li class="active"><a href="/category/linux.html">Linux</a></li>
+	              <li ><a href="/category/linux-networking.html">Linux, Networking</a></li>
+	              <li ><a href="/category/linux-networking-windows.html">Linux, Networking, Windows</a></li>
+	              <li ><a href="/category/linux-virtualization.html">Linux, Virtualization</a></li>
+	              <li ><a href="/category/networking.html">Networking</a></li>
+	              <li ><a href="/category/virtualization.html">Virtualization</a></li>
+	              <li ><a href="/category/windows.html">Windows</a></li>
+	          </ul>
+	        </nav>
+
+
+
+		  </div>
+
+	  </div>
+
+      <footer>
+		<p role="contentinfo">
+		  © 2013 ben - Proudly powered by <a href="http://alexis.notmyidea.org/pelican/">pelican</a>. Theme <a href="https://github.com/fle/pelican-simplegrey">pelican-simplegrey</a>.
+    	</p>
+
+	  </footer>	
+
+	</div>
+	
+
+</body>
+</html>

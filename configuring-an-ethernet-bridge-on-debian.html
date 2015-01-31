@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="">	
+<head>
+	<meta charset="utf-8"/>
+	<title>Configuring an Ethernet bridge on Debian - kb</title>	
+	<meta name="author" content="ben">
+	
+
+	<meta name="description" content="In some cases it may be needed to configure an Ethernet interface as a networking brigde, for example it is a common setup for some virtualization hosts/hypervisors. With the bridge it is achieved that the guest systems can communicate with the outside through the interface eth0, each guest having ...">
+
+
+	<link rel="top" href="#" /><link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,300italic,400italic,600italic|Source+Code+Pro' rel='stylesheet' type='text/css'></link>
+	<link rel="stylesheet" href="/theme/css/main.css" type="text/css" />
+		
+
+</head>
+	
+<body>
+
+    <div class="container">
+	  
+	  <header role="banner">
+	    <div class="feeds">
+	    </div>
+		<a href="" class="title">kb</a>
+      </header>
+	
+	  <div class="wrapper">
+
+		  <div role="main" class="content">
+	<article class="full">
+			
+		<h1>Configuring an Ethernet bridge on Debian</h1>
+		
+<div class="metadata">
+  <time datetime="2011-05-19T14:03:00" pubdate>Do 19 Mai 2011</time>
+    <address class="vcard author">
+      by <a class="url fn" href="/author/ben.html">ben</a>
+    </address>
+  in <a href="/category/linux-networking.html">Linux, Networking</a>
+<p class="tags">tagged <a href="/tag/debian.html">Debian</a>, <a href="/tag/linux-networking.html">Linux networking</a></p></div>		
+		<p>In some cases it may be needed to configure an Ethernet interface as a
+networking brigde, for example it is a common setup for some
+virtualization hosts/hypervisors. With the bridge it is achieved that
+the guest systems can communicate with the outside through the interface
+eth0, each guest having its own IP address. When configured as a bridge,
+your interface acts as sort of a network switch.<br />
+Here's how to configure a static bridge (there's another way, using the
+brctl command, but that configuration would be lost after a reboot).</p>
+<p>The Debian package bridge-utils contains an extension for
+/etc/network/interfaces. Instead of eth0, you define br0 and with
+"bridge_ports all" you tell all existent LAN interfaces (e.g. eth0) to
+bind to the bridge. With "bridge_fd 0" you set the forwarding delay for
+interfaces joining the bridge to zero.<br />
+<!--more--><br />
+Install the bridge-utils:</p>
+<div class="highlight"><pre><span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">bridge</span><span class="o">-</span><span class="n">utils</span>
+</pre></div>
+
+
+<p>! If you configure your device over the network, have a look at my post
+[Define commands for later execution / auto-restore backup
+configurations][] before continuing, to avoid locking yourself out of
+the system.</p>
+<p>Edit your interface configuration:</p>
+<div class="highlight"><pre><span class="n">vi</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">network</span><span class="o">/</span><span class="n">interfaces</span>
+
+<span class="k">auto</span> <span class="n">lo</span> <span class="n">br0</span>
+<span class="n">iface</span> <span class="n">lo</span> <span class="n">inet</span> <span class="n">loopback</span>
+
+<span class="cp"># The primary network interface</span>
+<span class="n">allow</span><span class="o">-</span><span class="n">hotplug</span> <span class="n">br0</span>
+<span class="n">iface</span> <span class="n">br0</span> <span class="n">inet</span> <span class="k">static</span>
+<span class="n">address</span> <span class="mf">10.1.1.10</span>
+<span class="n">netmask</span> <span class="mf">255.255.255.0</span>
+<span class="n">gateway</span> <span class="mf">10.1.1.1</span>
+<span class="n">bridge_ports</span> <span class="n">all</span>
+<span class="n">bridge_fd</span> <span class="mi">0</span>
+</pre></div>
+
+
+<p>When you bring up the bridge br0 now, it will be your new network
+interface. Check with <code>brctl show</code> afterwards.</p>
+<div class="highlight"><pre><span class="n">ifup</span> <span class="n">br0</span>
+<span class="n">brctl</span> <span class="n">show</span>
+
+<span class="n">bridge</span> <span class="n">name</span> <span class="n">bridge</span> <span class="n">id</span> <span class="n">STP</span> <span class="n">enabled</span> <span class="n">interfaces</span>
+<span class="n">br0</span> <span class="mf">8000.00248</span><span class="n">c24f2af</span> <span class="n">no</span> <span class="n">eth0</span>
+</pre></div>
+
+
+<p>[Define commands for later execution / auto-restore backup
+  configurations]: http://kb.haeringer.org/define-commands-for-later-execution-auto-restore-backup-configurations/
+    "Define commands for later execution / auto-restore backup configurations"</p>	
+
+	</article>
+
+    <p>
+	<a href="https://twitter.com/share" class="twitter-share-button" data-via="" data-lang="en" data-size="large" data-related="">Tweet</a>
+	<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+	</p>
+
+
+		  </div>	
+		  
+		  <div class="sidebar">
+
+	        <nav>
+	          <h2>Categories</h2>
+	          <ul>
+	              <li ><a href="/category/cisco.html">Cisco</a></li>
+	              <li ><a href="/category/linux.html">Linux</a></li>
+	              <li class="active"><a href="/category/linux-networking.html">Linux, Networking</a></li>
+	              <li ><a href="/category/linux-networking-windows.html">Linux, Networking, Windows</a></li>
+	              <li ><a href="/category/linux-virtualization.html">Linux, Virtualization</a></li>
+	              <li ><a href="/category/networking.html">Networking</a></li>
+	              <li ><a href="/category/virtualization.html">Virtualization</a></li>
+	              <li ><a href="/category/windows.html">Windows</a></li>
+	          </ul>
+	        </nav>
+
+
+
+		  </div>
+
+	  </div>
+
+      <footer>
+		<p role="contentinfo">
+		  © 2013 ben - Proudly powered by <a href="http://alexis.notmyidea.org/pelican/">pelican</a>. Theme <a href="https://github.com/fle/pelican-simplegrey">pelican-simplegrey</a>.
+    	</p>
+
+	  </footer>	
+
+	</div>
+	
+
+</body>
+</html>

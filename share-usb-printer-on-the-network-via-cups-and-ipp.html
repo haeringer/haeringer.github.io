@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="">	
+<head>
+	<meta charset="utf-8"/>
+	<title>Share USB Printer on the network via CUPS and IPP - kb</title>	
+	<meta name="author" content="ben">
+	
+
+	<meta name="description" content="The scenario: I have a USB printer (Samsung ML-1915) and want to be able to use it from all workstations in the network. As it is not a network printer, I connect it to my NAS (Debian/Ubuntu Server) and share the printer via CUPS (Common UNIX Printing System). You ...">
+
+
+	<link rel="top" href="#" /><link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,300italic,400italic,600italic|Source+Code+Pro' rel='stylesheet' type='text/css'></link>
+	<link rel="stylesheet" href="/theme/css/main.css" type="text/css" />
+		
+
+</head>
+	
+<body>
+
+    <div class="container">
+	  
+	  <header role="banner">
+	    <div class="feeds">
+	    </div>
+		<a href="" class="title">kb</a>
+      </header>
+	
+	  <div class="wrapper">
+
+		  <div role="main" class="content">
+	<article class="full">
+			
+		<h1>Share USB Printer on the network via CUPS and IPP</h1>
+		
+<div class="metadata">
+  <time datetime="2010-03-19T13:30:00" pubdate>Fr 19 März 2010</time>
+    <address class="vcard author">
+      by <a class="url fn" href="/author/ben.html">ben</a>
+    </address>
+  in <a href="/category/linux.html">Linux</a>
+<p class="tags">tagged <a href="/tag/arm.html">ARM</a>, <a href="/tag/ipp.html">IPP</a>, <a href="/tag/printing.html">Printing</a>, <a href="/tag/windows-client.html">Windows client</a></p></div>		
+		<p>The scenario: I have a USB printer (Samsung ML-1915) and want to be able
+to use it from all workstations in the network. As it is not a network
+printer, I connect it to my NAS (Debian/Ubuntu Server) and share the
+printer via CUPS (Common UNIX Printing System). You do <strong>not</strong> need
+Samba for this setup, because the clients use the printing service via
+IPP (Internet Printing Protocol). My NAS runs on an ARM platform, which
+is worth mentioning because the Samsung Unified Linux Driver is only for
+i386 and x64 systems.</p>
+<p><strong>Install CUPS</strong></p>
+<div class="highlight"><pre><span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">cups</span> <span class="n">cups</span><span class="o">-</span><span class="n">bsd</span>
+</pre></div>
+
+
+<p><strong>Edit the CUPS configuration</strong></p>
+<div class="highlight"><pre><span class="n">vi</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">cups</span><span class="o">/</span><span class="n">cupsd</span><span class="p">.</span><span class="n">conf</span>
+</pre></div>
+
+
+<!--more-->
+
+<p>Add the IP address of the CUPS server itself</p>
+<div class="highlight"><pre><span class="n">Listen</span> <span class="n">localhost</span><span class="o">:</span><span class="mi">631</span>
+
+<span class="n">Listen</span> <span class="mf">192.168.178.100</span>
+</pre></div>
+
+
+<p>Make CUPS visible to the entire network and enable printer sharing</p>
+<div class="highlight"><pre><span class="n">Browsing</span> <span class="n">On</span>
+<span class="n">BrowseOrder</span> <span class="n">allow</span><span class="p">,</span><span class="n">deny</span>
+<span class="n">BrowseAllow</span> <span class="err">@</span><span class="n">LOCAL</span>
+<span class="n">BrowseAddress</span> <span class="err">@</span><span class="n">LOCAL</span>
+</pre></div>
+
+
+<p>Edit the settings which machines may access the server etc. by adding
+<code>Allow @LOCAL</code> to the below sections. You could also set networks via
+<code>Allow 10.8.0.*</code> .</p>
+<div class="highlight"><pre><span class="err">#</span> <span class="nx">Restrict</span> <span class="nx">access</span> <span class="k">to</span> <span class="nx">the</span> <span class="nx">server...</span>
+<span class="o">&lt;</span><span class="nx">Location</span> <span class="o">/&gt;</span>
+ <span class="k">Order</span> <span class="nx">allow</span><span class="p">,</span><span class="nx">deny</span>
+ <span class="nx">Allow</span> <span class="p">@</span><span class="kd">LOCAL</span>
+<span class="o">&lt;/</span><span class="nx">Location</span><span class="o">&gt;</span>
+
+<span class="err">#</span> <span class="nx">Restrict</span> <span class="nx">access</span> <span class="k">to</span> <span class="nx">the</span> <span class="nx">admin</span> <span class="nx">pages...</span>
+<span class="o">&lt;</span><span class="nx">Location</span> <span class="p">/</span><span class="nx">admin</span><span class="o">&gt;</span>
+ <span class="k">Order</span> <span class="nx">allow</span><span class="p">,</span><span class="nx">deny</span>
+ <span class="nx">Allow</span> <span class="p">@</span><span class="kd">LOCAL</span>
+<span class="o">&lt;/</span><span class="nx">Location</span><span class="o">&gt;</span>
+
+<span class="err">#</span> <span class="nx">Restrict</span> <span class="nx">access</span> <span class="k">to</span> <span class="nx">configuration</span> <span class="nx">files...</span>
+<span class="o">&lt;</span><span class="nx">Location</span> <span class="p">/</span><span class="nx">admin</span><span class="p">/</span><span class="nx">conf</span><span class="o">&gt;</span>
+ <span class="nx">AuthType</span> <span class="nb">Default</span>
+ <span class="k">Require</span> <span class="n">user</span> <span class="p">@</span><span class="nx">SYSTEM</span>
+ <span class="nx">Allow</span> <span class="p">@</span><span class="kd">LOCAL</span>
+ <span class="k">Order</span> <span class="nx">allow</span><span class="p">,</span><span class="nx">deny</span>
+<span class="o">&lt;/</span><span class="nx">Location</span><span class="o">&gt;</span>
+</pre></div>
+
+
+<p><strong>restart the CUPS service</strong></p>
+<div class="highlight"><pre><span class="c">#/etc/init.d/cups restart</span>
+</pre></div>
+
+
+<p><strong>Install the printer in CUPS</strong></p>
+<p>In my case, I had some issues here because my NAS runs on ARM and
+Samsung doesn't provide ARM drivers for the ML-1915 printer. But I could
+use a part of the driver anyway:</p>
+<li>
+Download the Unified Linux Driver from the Samsung Website
+
+</li>
+
+<li>
+Extract the file "rastertosamsungspl" and copy it into the server
+directory `/usr/lib/cups/filter/`; compare the file permissions with the
+existing filter files
+
+</li>
+
+<li>
+Extract the file /cdroot/Linux/noarch/at\_opt/share/ppd/ML-191xspl2.ppd
+from the archive
+
+</li>
+
+<li>
+Plug the printer in and switch it on; Debian should recognize it
+
+</li>
+
+<li>
+Access the CUPS interface with your browser at 192.168.178.100:631
+
+</li>
+
+<li>
+In the Administration tab, choose "List available printers", then choose
+your printer, add it and follow the instructions. When you are asked for
+a username and password, enter your server login username and password.
+
+</li>
+
+<li>
+When it comes to choosing the driver, provide the \*.ppd file you have
+extracted above
+
+</li>
+
+<li>
+Check "share printer on the network"
+
+</li>
+
+<li>
+If the printer installation was successful, don't try to print a test
+page in CUPS; it won't work as the drivers are not fully installed
+because of the missing "rastertosamsung"-files
+
+</li>
+
+<p><strong>Add printer in Windows</strong></p>
+<p>Now you can easily add the printer in Windows workstations in the
+network, but you still have to install the printer driver in Windows to
+get things working. In Windows 7/8 under "Devices and Printers", press
+"Add a printer" and the choose network printer. If the printer can't be
+found, press "The printer that I want isn't listed" and copy the CUPS
+URL of the printer (e.g.
+http://192.168.178.100:631/printers/Samsung_ML-1915 - not https!) into
+the field "Select a shared printer by name". The printer should be found
+and you should get a prompt to install the windows driver for the device
+(Tip: If you don't want to install the Samsung Printer software, start
+the Samsung Driver installer and wait for it to extract the its files to
+a temporary directory. Then you can choose the driver file in the
+network printer installation dialog directly out of the temp directory).
+After choosing the driver, you should be able to print a test page
+successfully.</p>	
+
+	</article>
+
+    <p>
+	<a href="https://twitter.com/share" class="twitter-share-button" data-via="" data-lang="en" data-size="large" data-related="">Tweet</a>
+	<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+	</p>
+
+
+		  </div>	
+		  
+		  <div class="sidebar">
+
+	        <nav>
+	          <h2>Categories</h2>
+	          <ul>
+	              <li ><a href="/category/cisco.html">Cisco</a></li>
+	              <li class="active"><a href="/category/linux.html">Linux</a></li>
+	              <li ><a href="/category/linux-networking.html">Linux, Networking</a></li>
+	              <li ><a href="/category/linux-networking-windows.html">Linux, Networking, Windows</a></li>
+	              <li ><a href="/category/linux-virtualization.html">Linux, Virtualization</a></li>
+	              <li ><a href="/category/networking.html">Networking</a></li>
+	              <li ><a href="/category/virtualization.html">Virtualization</a></li>
+	              <li ><a href="/category/windows.html">Windows</a></li>
+	          </ul>
+	        </nav>
+
+
+
+		  </div>
+
+	  </div>
+
+      <footer>
+		<p role="contentinfo">
+		  © 2013 ben - Proudly powered by <a href="http://alexis.notmyidea.org/pelican/">pelican</a>. Theme <a href="https://github.com/fle/pelican-simplegrey">pelican-simplegrey</a>.
+    	</p>
+
+	  </footer>	
+
+	</div>
+	
+
+</body>
+</html>

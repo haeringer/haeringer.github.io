@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="">	
+<head>
+	<meta charset="utf-8"/>
+	<title>SSH public key method - kb</title>	
+	<meta name="author" content="ben">
+	
+
+	<meta name="description" content="People often still use simple password authentication to log onto critical servers via SSH, which is not very secure especially on web servers that are directly managed from the outside. A better method is the use of asymmetric encryption with public and private keys. You create a key pair on ...">
+
+
+	<link rel="top" href="#" /><link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,300italic,400italic,600italic|Source+Code+Pro' rel='stylesheet' type='text/css'></link>
+	<link rel="stylesheet" href="/theme/css/main.css" type="text/css" />
+		
+
+</head>
+	
+<body>
+
+    <div class="container">
+	  
+	  <header role="banner">
+	    <div class="feeds">
+	    </div>
+		<a href="" class="title">kb</a>
+      </header>
+	
+	  <div class="wrapper">
+
+		  <div role="main" class="content">
+	<article class="full">
+			
+		<h1>SSH public key method</h1>
+		
+<div class="metadata">
+  <time datetime="2012-03-14T18:06:00" pubdate>Mi 14 März 2012</time>
+    <address class="vcard author">
+      by <a class="url fn" href="/author/ben.html">ben</a>
+    </address>
+  in <a href="/category/linux-networking-windows.html">Linux, Networking, Windows</a>
+<p class="tags">tagged <a href="/tag/linux-networking.html">Linux networking</a>, <a href="/tag/management.html">Management</a>, <a href="/tag/putty.html">PuTTY</a>, <a href="/tag/ssh.html">SSH</a>, <a href="/tag/windows-client.html">Windows client</a></p></div>		
+		<p>People often still use simple password authentication to log onto
+critical servers via SSH, which is not very secure especially on web
+servers that are directly managed from the outside. A better method is
+the use of asymmetric encryption with public and private keys.</p>
+<p>You create a key pair on your client and save the public key in the
+authorized keys file on the server. The private key must always kept
+secret.<br />
+</p>
+<p><strong>Client-side (Linux/Mac)</strong></p>
+<p>Create SSH key pair (will be created in <code>/home/user/.ssh/</code>):</p>
+<div class="highlight"><pre><span class="o">~</span><span class="err">#</span> <span class="n">ssh</span><span class="o">-</span><span class="n">keygen</span> <span class="o">-</span><span class="n">t</span> <span class="n">rsa</span>
+</pre></div>
+
+
+<p>You should secure the key with a password. You can also leave it blank
+so you can <!--more-->directly log in without a password, but if some
+one should 'steal' your private key he can easily abuse it.</p>
+<p>Show public key:</p>
+<div class="highlight"><pre><span class="o">~</span><span class="err">#</span> <span class="n">cat</span> <span class="p">.</span><span class="n">ssh</span><span class="o">/</span><span class="n">id_rsa</span><span class="p">.</span><span class="n">pub</span>
+</pre></div>
+
+
+<p><strong>Client-side (Windows, PuTTY)</strong></p>
+<ul>
+<li>Start PuTTYgen - this is a small key generator program that comes with
+PuTTY.  </li>
+<li>Choose SSH-2 RSA and change the number of bits to 2048  </li>
+<li>Press Generate  </li>
+<li>You should secure the key with a password. You can also leave it
+blank so you can directly log in without a password, but if some one
+should 'steal' your private key he can easily abuse it.  </li>
+<li>Copy the generated key from the top of the window into a new notepad
+file and save it as "id_rsa.pub".  </li>
+<li>Save the private key with the corresponding button.  </li>
+<li>To use the private key in PuTTY for logging in, go to Connection >
+SSH > Auth and load the key.<br />
+</li>
+</ul>
+<p><strong>Server-side</strong></p>
+<p>Go into the home directory of the user that needs access:</p>
+<div class="highlight"><pre><span class="n">cd</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">user</span>
+</pre></div>
+
+
+<p>Create hidden SSH directory:</p>
+<div class="highlight"><pre><span class="n">mkdir</span> <span class="p">.</span><span class="n">ssh</span>
+</pre></div>
+
+
+<p>Create and open an authorized_keys file:</p>
+<div class="highlight"><pre><span class="n">vi</span> <span class="p">.</span><span class="n">ssh</span><span class="o">/</span><span class="n">authorized_keys</span>
+</pre></div>
+
+
+<p>Paste the key out of id_rsa.pub (from the client, see above) as one
+line into the authorized_keys file.</p>
+<p>Modify rights:</p>
+<div class="highlight"><pre><span class="n">chmod</span> <span class="o">-</span><span class="n">R</span> <span class="mi">600</span> <span class="p">.</span><span class="n">ssh</span>
+</pre></div>
+
+
+<p>After having tested the public key-based login successfully (and only
+then!), disable the normal password-based login:</p>
+<div class="highlight"><pre><span class="n">vi</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">ssh</span><span class="o">/</span><span class="n">sshd_config</span>
+<span class="n">PasswordAuthentication</span> <span class="n">no</span>
+
+<span class="n">service</span> <span class="n">ssh</span> <span class="n">restart</span>
+</pre></div>	
+
+	</article>
+
+    <p>
+	<a href="https://twitter.com/share" class="twitter-share-button" data-via="" data-lang="en" data-size="large" data-related="">Tweet</a>
+	<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+	</p>
+
+
+		  </div>	
+		  
+		  <div class="sidebar">
+
+	        <nav>
+	          <h2>Categories</h2>
+	          <ul>
+	              <li ><a href="/category/cisco.html">Cisco</a></li>
+	              <li ><a href="/category/linux.html">Linux</a></li>
+	              <li ><a href="/category/linux-networking.html">Linux, Networking</a></li>
+	              <li class="active"><a href="/category/linux-networking-windows.html">Linux, Networking, Windows</a></li>
+	              <li ><a href="/category/linux-virtualization.html">Linux, Virtualization</a></li>
+	              <li ><a href="/category/networking.html">Networking</a></li>
+	              <li ><a href="/category/virtualization.html">Virtualization</a></li>
+	              <li ><a href="/category/windows.html">Windows</a></li>
+	          </ul>
+	        </nav>
+
+
+
+		  </div>
+
+	  </div>
+
+      <footer>
+		<p role="contentinfo">
+		  © 2013 ben - Proudly powered by <a href="http://alexis.notmyidea.org/pelican/">pelican</a>. Theme <a href="https://github.com/fle/pelican-simplegrey">pelican-simplegrey</a>.
+    	</p>
+
+	  </footer>	
+
+	</div>
+	
+
+</body>
+</html>

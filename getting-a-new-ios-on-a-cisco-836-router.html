@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="">	
+<head>
+	<meta charset="utf-8"/>
+	<title>Getting a new IOS on a Cisco 836 router - kb</title>	
+	<meta name="author" content="ben">
+	
+
+	<meta name="description" content="Some time ago I was struggling with getting a new IOS version on a 836 router. From the newer 800 series routers, 876 or 881 etc., I was used to configure a VLAN on one of the Ethernet interfaces; then you're able to reach the interface via TFTP at ...">
+
+
+	<link rel="top" href="#" /><link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,300italic,400italic,600italic|Source+Code+Pro' rel='stylesheet' type='text/css'></link>
+	<link rel="stylesheet" href="/theme/css/main.css" type="text/css" />
+		
+
+</head>
+	
+<body>
+
+    <div class="container">
+	  
+	  <header role="banner">
+	    <div class="feeds">
+	    </div>
+		<a href="" class="title">kb</a>
+      </header>
+	
+	  <div class="wrapper">
+
+		  <div role="main" class="content">
+	<article class="full">
+			
+		<h1>Getting a new IOS on a Cisco 836 router</h1>
+		
+<div class="metadata">
+  <time datetime="2010-06-15T08:37:00" pubdate>Di 15 Juni 2010</time>
+    <address class="vcard author">
+      by <a class="url fn" href="/author/ben.html">ben</a>
+    </address>
+  in <a href="/category/networking.html">Networking</a>
+<p class="tags">tagged <a href="/tag/cisco-ios.html">Cisco IOS</a>, <a href="/tag/vlan.html">VLAN</a></p></div>		
+		<p>Some time ago I was struggling with getting a new IOS version on a 836
+router. From the newer 800 series routers, 876 or 881 etc., I was used
+to configure a VLAN on one of the Ethernet interfaces; then you're able
+to reach the interface via TFTP at the IP address of the VLAN. The
+problem with the 836 is that it doesn't support VLANs, so your interface
+doesn't have an IP address. The solution is to copy the IOS in <strong>ROMmon
+mode</strong>.</p>
+<p>​1.    Connect your NIC with Ethernet interface 1 of the router (it has
+to be #1)</p>
+<p>​2.    Reboot the router and press break during the boot process to get
+into ROMmon mode<br />
+<!--more--><br />
+3.    If you want to, check what's in the flash memory:</p>
+<div class="highlight"><pre><span class="n">rommon</span> <span class="mi">1</span> <span class="o">&gt;</span> <span class="n">dir</span> <span class="n">flash</span><span class="o">:</span>
+</pre></div>
+
+
+<p>​4.    Configure IP information with the following commands:</p>
+<p><code>rommon 2 &gt; IP_ADDRESS=192.168.2.100</code> (use an address in the same subnet
+as your NIC)<br />
+<code>rommon 3 &gt; IP_SUBNET_MASK=255.255.255.0</code> (the subnet that is
+configured on your NIC)<br />
+<code>rommon 4 &gt; DEFAULT_GATEWAY=192.168.2.2</code> (the address of your NIC)<br />
+<code>rommon 5 &gt; TFTP_SERVER=192.168.2.2</code> (the address of your NIC)<br />
+<code>rommon 6 &gt; TFTP_FILE=c836-k9o3y6-mz.123-4.T.bin</code> (filename of the IOS
+to download)</p>
+<p>​5.    Initialize download of the IOS file with tftdnld:</p>
+<div class="highlight"><pre><span class="n">rommon</span> <span class="mi">7</span> <span class="o">&gt;</span> <span class="n">tftpdnld</span>
+</pre></div>
+
+
+<p>​6.    You will get a warning that all existing data on flash will be
+lost, because the command overwrites everything. But on the 836, you
+normally don't need anything else than the IOS. Proceed with 'y' and
+watch the copy process.</p>
+<p>This works with other routers such as 2800/3800, too.</p>	
+
+	</article>
+
+    <p>
+	<a href="https://twitter.com/share" class="twitter-share-button" data-via="" data-lang="en" data-size="large" data-related="">Tweet</a>
+	<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+	</p>
+
+
+		  </div>	
+		  
+		  <div class="sidebar">
+
+	        <nav>
+	          <h2>Categories</h2>
+	          <ul>
+	              <li ><a href="/category/cisco.html">Cisco</a></li>
+	              <li ><a href="/category/linux.html">Linux</a></li>
+	              <li ><a href="/category/linux-networking.html">Linux, Networking</a></li>
+	              <li ><a href="/category/linux-networking-windows.html">Linux, Networking, Windows</a></li>
+	              <li ><a href="/category/linux-virtualization.html">Linux, Virtualization</a></li>
+	              <li class="active"><a href="/category/networking.html">Networking</a></li>
+	              <li ><a href="/category/virtualization.html">Virtualization</a></li>
+	              <li ><a href="/category/windows.html">Windows</a></li>
+	          </ul>
+	        </nav>
+
+
+
+		  </div>
+
+	  </div>
+
+      <footer>
+		<p role="contentinfo">
+		  © 2013 ben - Proudly powered by <a href="http://alexis.notmyidea.org/pelican/">pelican</a>. Theme <a href="https://github.com/fle/pelican-simplegrey">pelican-simplegrey</a>.
+    	</p>
+
+	  </footer>	
+
+	</div>
+	
+
+</body>
+</html>

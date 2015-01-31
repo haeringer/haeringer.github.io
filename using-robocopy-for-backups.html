@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="">	
+<head>
+	<meta charset="utf-8"/>
+	<title>Using Robocopy for backups - kb</title>	
+	<meta name="author" content="ben">
+	
+
+	<meta name="description" content="Since Windows Vista, Robocopy is the 'official' CLI tool within Windows to make full, reliable incremental backups. It has many options, but for basic operation, only few of them are needed. For a simple mirror of one directory or partition, you only need the parameter /MIR: robocopy D:Data H ...">
+
+
+	<link rel="top" href="#" /><link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,300italic,400italic,600italic|Source+Code+Pro' rel='stylesheet' type='text/css'></link>
+	<link rel="stylesheet" href="/theme/css/main.css" type="text/css" />
+		
+
+</head>
+	
+<body>
+
+    <div class="container">
+	  
+	  <header role="banner">
+	    <div class="feeds">
+	    </div>
+		<a href="" class="title">kb</a>
+      </header>
+	
+	  <div class="wrapper">
+
+		  <div role="main" class="content">
+	<article class="full">
+			
+		<h1>Using Robocopy for backups</h1>
+		
+<div class="metadata">
+  <time datetime="2010-10-10T09:48:00" pubdate>So 10 Oktober 2010</time>
+    <address class="vcard author">
+      by <a class="url fn" href="/author/ben.html">ben</a>
+    </address>
+  in <a href="/category/windows.html">Windows</a>
+<p class="tags">tagged <a href="/tag/backup.html">Backup</a>, <a href="/tag/windows-client.html">Windows client</a></p></div>		
+		<p>Since Windows Vista, Robocopy is the 'official' CLI tool within Windows
+to make full, reliable incremental backups. It has many options, but for
+basic operation, only few of them are needed. For a simple mirror of one
+directory or partition, you only need the parameter <code>/MIR</code>:</p>
+<div class="highlight"><pre><span class="n">robocopy</span> <span class="n">D</span><span class="o">:</span><span class="n">Data</span> <span class="n">H</span><span class="o">:</span><span class="n">Data_backup</span> <span class="o">/</span><span class="n">MIR</span>
+</pre></div>
+
+
+<p>If a path contains spaces, it has to be written in quotation marks (e.g.
+"H:Data Backup").</p>
+<!--more-->
+
+<p><strong>Additional parameters</strong></p>
+<p>You can use the 'test mode' first by adding <code>/L</code>. Then you can try
+different parameters and see how they would work.</p>
+<div class="highlight"><pre><span class="n">robocopy</span> <span class="n">D</span><span class="o">:</span><span class="n">Data</span> <span class="n">H</span><span class="o">:</span><span class="n">Data_backup</span> <span class="o">/</span><span class="n">MIR</span> <span class="o">/</span><span class="n">L</span>
+</pre></div>
+
+
+<p>As you can see at the output, Robocopy uses some default options when
+issuing the <code>/MIR</code> parameter:</p>
+<p>*.* /L /S /E /COPY:DAT /PURGE /MIR /R:1000000 /W:30</p>
+<p>R:n is the number of retries when a copy process failed and W:n is the
+time between the retries in seconds. You can simply overwrite these
+default values, e.g.:</p>
+<div class="highlight"><pre><span class="n">robocopy</span> <span class="n">D</span><span class="o">:</span><span class="n">Data</span> <span class="n">H</span><span class="o">:</span><span class="n">Data_backup</span> <span class="o">/</span><span class="n">MIR</span> <span class="o">/</span><span class="n">R</span><span class="o">:</span><span class="mi">5</span> <span class="o">/</span><span class="n">W</span><span class="o">:</span><span class="mi">10</span>
+</pre></div>
+
+
+<p>You can also exclude files or directories. To exclude a directory, use
+<code>/XD</code> and to exclude e.g. all *.exe files, use <code>/XF</code>:</p>
+<div class="highlight"><pre><span class="n">robocopy</span> <span class="n">D</span><span class="o">:</span><span class="n">Data</span> <span class="n">H</span><span class="o">:</span><span class="n">Data_backup</span> <span class="o">/</span><span class="n">MIR</span> <span class="o">/</span><span class="n">XD</span> <span class="s">&quot;D:Dataneedless files&quot;</span>
+<span class="n">robocopy</span> <span class="n">D</span><span class="o">:</span><span class="n">Data</span> <span class="n">H</span><span class="o">:</span><span class="n">Data_backup</span> <span class="o">/</span><span class="n">MIR</span> <span class="o">/</span><span class="n">XF</span> <span class="o">*</span><span class="p">.</span><span class="n">exe</span>
+</pre></div>
+
+
+<p>Of course, Robocopy can also create a log file. This can be done with
+<code>/LOG+</code> and the desired path. To keep the log smaller and more clear,
+you can prevent all the file names to be logged with <code>/NFL</code>. If errors
+occur, the file names will still be shown.</p>
+<div class="highlight"><pre><span class="n">robocopy</span> <span class="n">D</span><span class="o">:</span><span class="n">Data</span> <span class="n">H</span><span class="o">:</span><span class="n">Data_backup</span> <span class="o">/</span><span class="n">MIR</span> <span class="o">/</span><span class="n">LOG</span><span class="o">+:</span><span class="n">C</span><span class="o">:</span><span class="n">Logsrobocopy</span><span class="p">.</span><span class="n">log</span> <span class="o">/</span><span class="n">NFL</span>
+</pre></div>
+
+
+<p>When you want to mirror files from Windows (NTFS file system) to a FAT
+or ext or another system (as I do when I backup files to my Debian NAS),
+you should use the <code>/FFT</code> switch. This forces robocopy to use a specific
+time stamp format that prevents copy errors over the different file
+systems.  </p>
+<p><strong>Robocopy in a network</strong></p>
+<p>When using robocopy over the network, you can also use the parameter
+<code>/Z</code>, which causes Robocopy to continue the copy process of a file if it
+got interrupted.</p>
+<p>There is also a parameter to save bandwidth: <code>/IPG:n</code> causes Robocopy to
+wait for the given time in milliseconds (n) after every packet.  </p>
+<p><strong>Example: the robocopy backup from my personal Windows data partition
+to a Samba fileserver:</strong></p>
+<div class="highlight"><pre><span class="n">robocopy</span> <span class="n">E</span><span class="o">:</span> <span class="n">N</span><span class="o">:</span><span class="n">COMPNAME</span> <span class="o">/</span><span class="n">MIR</span> <span class="o">/</span><span class="n">FFT</span> <span class="o">/</span><span class="n">Z</span> <span class="o">/</span><span class="n">R</span><span class="o">:</span><span class="mi">5</span> <span class="o">/</span><span class="n">W</span><span class="o">:</span><span class="mi">10</span> <span class="o">/</span><span class="n">XD</span> <span class="s">&quot;E:System Volume Information&quot;</span> <span class="n">E</span><span class="o">:</span><span class="err">$</span><span class="n">RECYCLE</span><span class="p">.</span><span class="n">BIN</span> <span class="o">/</span><span class="n">LOG</span><span class="o">+:</span><span class="n">N</span><span class="o">:</span><span class="n">logsbackup</span><span class="o">-</span><span class="n">COMPNAME</span><span class="p">.</span><span class="n">log</span> <span class="o">/</span><span class="n">TEE</span>
+</pre></div>	
+
+	</article>
+
+    <p>
+	<a href="https://twitter.com/share" class="twitter-share-button" data-via="" data-lang="en" data-size="large" data-related="">Tweet</a>
+	<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+	</p>
+
+
+		  </div>	
+		  
+		  <div class="sidebar">
+
+	        <nav>
+	          <h2>Categories</h2>
+	          <ul>
+	              <li ><a href="/category/cisco.html">Cisco</a></li>
+	              <li ><a href="/category/linux.html">Linux</a></li>
+	              <li ><a href="/category/linux-networking.html">Linux, Networking</a></li>
+	              <li ><a href="/category/linux-networking-windows.html">Linux, Networking, Windows</a></li>
+	              <li ><a href="/category/linux-virtualization.html">Linux, Virtualization</a></li>
+	              <li ><a href="/category/networking.html">Networking</a></li>
+	              <li ><a href="/category/virtualization.html">Virtualization</a></li>
+	              <li class="active"><a href="/category/windows.html">Windows</a></li>
+	          </ul>
+	        </nav>
+
+
+
+		  </div>
+
+	  </div>
+
+      <footer>
+		<p role="contentinfo">
+		  © 2013 ben - Proudly powered by <a href="http://alexis.notmyidea.org/pelican/">pelican</a>. Theme <a href="https://github.com/fle/pelican-simplegrey">pelican-simplegrey</a>.
+    	</p>
+
+	  </footer>	
+
+	</div>
+	
+
+</body>
+</html>

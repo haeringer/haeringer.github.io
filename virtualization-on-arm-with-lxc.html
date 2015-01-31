@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="">	
+<head>
+	<meta charset="utf-8"/>
+	<title>Virtualization on ARM with LXC - kb</title>	
+	<meta name="author" content="ben">
+	
+
+	<meta name="description" content="Recently I was searching for a virtualization solution for my ARM-based QNAP TS-219P+ NAS device, running Debian Linux on it. On ARM, you cannot use standard hypervisors like VMware or XEN (at least not yet), and KVM for ARM is also not usable yet. There are bigger devices with x86 ...">
+
+
+	<link rel="top" href="#" /><link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,300italic,400italic,600italic|Source+Code+Pro' rel='stylesheet' type='text/css'></link>
+	<link rel="stylesheet" href="/theme/css/main.css" type="text/css" />
+		
+
+</head>
+	
+<body>
+
+    <div class="container">
+	  
+	  <header role="banner">
+	    <div class="feeds">
+	    </div>
+		<a href="" class="title">kb</a>
+      </header>
+	
+	  <div class="wrapper">
+
+		  <div role="main" class="content">
+	<article class="full">
+			
+		<h1>Virtualization on ARM with LXC</h1>
+		
+<div class="metadata">
+  <time datetime="2011-10-06T21:21:00" pubdate>Do 06 Oktober 2011</time>
+    <address class="vcard author">
+      by <a class="url fn" href="/author/ben.html">ben</a>
+    </address>
+  in <a href="/category/linux-virtualization.html">Linux, Virtualization</a>
+<p class="tags">tagged <a href="/tag/arm.html">ARM</a>, <a href="/tag/debian.html">Debian</a>, <a href="/tag/lxc.html">LXC</a></p></div>		
+		<p>Recently I was searching for a virtualization solution for my ARM-based
+QNAP TS-219P+ NAS device, running Debian Linux on it. On ARM, you cannot
+use standard hypervisors like VMware or XEN (at least not yet), and KVM
+for ARM is also not usable yet. There are bigger devices with x86
+architecture from QNAP, but they are too power-consuming for my taste.
+The TS-219P+ needs 19W and that's already enough for a home device
+running 24/7. Also, I wanted to use open source software if possible.
+Now there is the approach of operating system-level virtualization, in
+which the Linux host plays some sort of a hypervisor role, or in better
+words, your virtual machines use your host kernel to run on it instead
+of a virtualized processor. This means that you can run only Linux VMs,
+but with the advantage of having native performance for each VM, because
+each VM is just a bunch of processes, securely isolated from eachother.</p>
+<p>There are two older and pretty well-known candidates that make use of
+this technology: OpenVZ and Linux-VServer. Both claim to be somewhat
+ARM-compatible, but after some research I found out that - at the time
+of this writing - they're not: <!--more-->There have been a few single
+ARM ports for both OpenVZ and Linux-VServer, but those were either
+quick-and-dirty-ports which have never been developed further, or it was
+just a port from one user but the developer hasn't cared about it any
+further. Also, you have to patch your kernel for both solutions.</p>
+<p>Almost having given up, I finally found LXC (Linux Containers), which
+uses a similar technology and has been integrated into the mainline
+kernel, so there's no need to use a patched kernel. Maintained by IBM
+employee Daniel Lezcano, it is a quite young project and therefore still
+has some rough edges, but it is actively developed. And the best thing:
+LXC is ARM-compatible!</p>
+<p>Here's how to setup LXC. You should at least use a 2.6.32 kernel (which
+you do most likely, if you're running Squeeze).</p>
+<p><strong>Installation</strong></p>
+<p>You could install lxc just with apt-get install lxc, but as of this
+writing, that installs version 0.7.2 in Debian stable, which is pretty
+outdated and misses some important fixes. To compile and install a newer
+version (I choose 0.7.5 which is also used in Ubuntu 11.10), follow the
+steps below:</p>
+<div class="highlight"><pre><span class="n">wget</span> <span class="n">http</span><span class="o">:</span><span class="c1">//lxc.sourceforge.net/download/lxc/lxc-0.7.5.tar.gz</span>
+<span class="n">tar</span> <span class="n">xzf</span> <span class="n">lxc</span><span class="o">-</span><span class="mf">0.7.5</span><span class="p">.</span><span class="n">tar</span><span class="p">.</span><span class="n">gz</span>
+<span class="n">cd</span> <span class="n">lxc</span><span class="o">-</span><span class="mf">0.7.5</span>
+<span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">libcap</span><span class="o">-</span><span class="n">dev</span> <span class="n">libcap2</span><span class="o">-</span><span class="n">bin</span>
+</pre></div>
+
+
+<p>You can change the directory that lxc will use for the container files
+from /usr/local to anything else like "/ve" with
+<code>./configure --prefix=/ve</code>, but for this how-to I will stay with the
+default directory. You may need to install the necessary compilers etc.
+with the "build-essential" tool collection.</p>
+<div class="highlight"><pre><span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">build</span><span class="o">-</span><span class="n">essential</span>
+<span class="p">.</span><span class="o">/</span><span class="n">configure</span>
+<span class="n">make</span> <span class="n">install</span>
+</pre></div>
+
+
+<p>If you did not use the default directory, you may have to add your
+custom directory to your users PATH by adding the below line to your
+shell config:</p>
+<div class="highlight"><pre><span class="n">vi</span> <span class="o">/</span><span class="n">userhome</span><span class="o">/</span><span class="p">.</span><span class="n">bashrc</span>
+<span class="n">PATH</span><span class="o">=</span><span class="err">$</span><span class="n">PATH</span><span class="o">:/</span><span class="n">lxc</span><span class="o">/</span><span class="n">bin</span>
+</pre></div>
+
+
+<p>Install debootstrap to create the containers later, and bridge-utils.</p>
+<div class="highlight"><pre><span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">debootstrap</span> <span class="n">bridge</span><span class="o">-</span><span class="n">utils</span>
+</pre></div>
+
+
+<p>Now configure your network interface as a bridge, which is described in
+<a href="http://kb.haeringer.org/configuring-an-ethernet-bridge-on-debian/" title="Configuring an Ethernet bridge on Debian">another short article</a>.</p>
+<p>Before we can setup the first container, cgroups has to be mounted. Add
+the below line to fstab:</p>
+<div class="highlight"><pre><span class="n">vi</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">fstab</span>
+<span class="n">cgroup</span> <span class="o">/</span><span class="n">cgroup</span> <span class="n">cgroup</span> <span class="n">defaults</span> <span class="mi">0</span> <span class="mi">0</span>
+</pre></div>
+
+
+<p>Now create the mount directory and mount cgroups:</p>
+<div class="highlight"><pre><span class="n">mkdir</span> <span class="o">/</span><span class="n">cgroup</span>
+<span class="n">mount</span> <span class="n">cgroup</span>
+</pre></div>
+
+
+<p>Create the workspace for the containers and afterwards create your first
+container, using template "debian" and name "vm1" (ignore the warning
+that will come up, as the mentioned config file will be created anyway).
+This may take a while the first time, but the files will be stored in a
+cache for future containers. The scripts will automatically debootstrap
+a system for the hardware architecture you're running (ARM in this
+case).</p>
+<div class="highlight"><pre><span class="n">mkdir</span> <span class="o">-</span><span class="n">p</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">lxc</span>
+<span class="n">lxc</span><span class="o">-</span><span class="n">create</span> <span class="o">-</span><span class="n">t</span> <span class="n">debian</span> <span class="o">-</span><span class="n">n</span> <span class="n">vm1</span>
+</pre></div>
+
+
+<p>Open the config file and add the below lines to the end of the config:</p>
+<div class="highlight"><pre><span class="n">vi</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">lxc</span><span class="o">/</span><span class="n">vm1</span><span class="o">/</span><span class="n">config</span>
+
+<span class="n">lxc</span><span class="p">.</span><span class="n">utsname</span> <span class="o">=</span> <span class="n">vm1</span>
+<span class="n">lxc</span><span class="p">.</span><span class="n">network</span><span class="p">.</span><span class="n">type</span> <span class="o">=</span> <span class="n">veth</span>
+<span class="n">lxc</span><span class="p">.</span><span class="n">network</span><span class="p">.</span><span class="n">flags</span> <span class="o">=</span> <span class="n">up</span>
+<span class="n">lxc</span><span class="p">.</span><span class="n">network</span><span class="p">.</span><span class="n">link</span> <span class="o">=</span> <span class="n">br0</span>
+<span class="n">lxc</span><span class="p">.</span><span class="n">network</span><span class="p">.</span><span class="n">ipv4</span> <span class="o">=</span> <span class="mf">10.1.1.11</span><span class="o">/</span><span class="mi">24</span>
+</pre></div>
+
+
+<p>Explanations:<br />
+lxc.utsname: The hostname of the container.<br />
+lxc.network.type: There are a couple of network types we can work with
+(man lxc.conf), but you should use veth if working with bridges.<br />
+lxc.network.flags: "up" says the network to be up at start.<br />
+lxc.network.link: "br0" specifies the network bridge to which the
+virtual interface will be added.<br />
+lxc.network.hwaddr = 00:FF:12:34:56:78 - You can set the MAC address
+the device will use - set only if you use DHCP instead of a static IP
+address.<br />
+lxc.network.ipv4: Network address and Prefix assigned to the virtual
+interface. You can provide multiple, one per line. You have to edit the
+interfaces within the container as well, as with a normal installation!</p>
+<div class="highlight"><pre><span class="n">vi</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">lxc</span><span class="o">/</span><span class="n">vm1</span><span class="o">/</span><span class="n">rootfs</span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">network</span><span class="o">/</span><span class="n">interfaces</span>
+
+<span class="cp"># iface eth0 inet dhcp</span>
+<span class="n">iface</span> <span class="n">eth0</span> <span class="n">inet</span> <span class="k">static</span>
+<span class="n">address</span> <span class="mf">10.1.1.11</span>
+<span class="n">netmask</span> <span class="mf">255.255.255.0</span>
+<span class="n">network</span> <span class="mf">10.1.1.0</span>
+<span class="n">broadcast</span> <span class="mf">10.1.1.255</span>
+<span class="n">gateway</span> <span class="mf">10.1.1.1</span>
+</pre></div>
+
+
+<p><strong>VM handling</strong></p>
+<p>Start vm1 in daemon mode by executing:</p>
+<div class="highlight"><pre><span class="n">lxc</span><span class="o">-</span><span class="n">start</span> <span class="o">-</span><span class="n">n</span> <span class="n">vm1</span> <span class="o">-</span><span class="n">d</span>
+</pre></div>
+
+
+<p>To check if it is running, execute:</p>
+<div class="highlight"><pre><span class="n">lxc</span><span class="o">-</span><span class="n">info</span> <span class="o">-</span><span class="n">n</span> <span class="n">vm1</span>
+
+<span class="err">&#39;</span><span class="n">vm1</span><span class="err">&#39;</span> <span class="n">is</span> <span class="n">RUNNING</span>
+</pre></div>
+
+
+<p>Now your new VM should be reachable via SSH like a normal server. To get
+into the VM via 'console' from the host, execute:</p>
+<div class="highlight"><pre><span class="n">lxc</span><span class="o">-</span><span class="n">console</span> <span class="o">-</span><span class="n">n</span> <span class="n">vm1</span>
+</pre></div>
+
+
+<p>(Press "ctrl-a d" to disconnect from the console session)</p>
+<p>Root password is "root", you better change that soon with passwd.</p>
+<p>Show all containers:</p>
+<div class="highlight"><pre><span class="n">lxc</span><span class="o">-</span><span class="n">ls</span> <span class="o">-</span><span class="n">l</span>
+</pre></div>
+
+
+<p>Do not use lxc-stop to shutdown containers, but regularly shutdown them
+via <code>shutdown -h now</code>. You should do that with all containers before
+shutting down the Host server, because otherwise it's like pulling the
+powercord of your hypervisor machine.</p>
+<p><strong>Initial VM setup</strong></p>
+<p>Correct some system parameters which are normally set during the OS
+installation:</p>
+<ul>
+<li>
+<p>Time zone:</p>
+<p>dpkg-reconfigure tzdata</p>
+</li>
+<li>
+<p>Package source, change mirror to your country (see
+http://www.debian.org/mirror/list), e.g.</p>
+<p>echo deb http://ftp.de.debian.org/debian squeeze main &gt; /etc/apt/sources.list</p>
+</li>
+<li>
+<p>Default gateway (you have to set this additionally to the gateway
+configuration in /etc/network/interfaces, but in a current LXC dev
+version this has already been fixed and gateway auto-detection was
+implemented, based on the interface config):</p>
+<p>route add default gw 10.1.1.1</p>
+</li>
+<li>
+<p>The Debian template creates a pretty bare, small system which even
+doesn't have a ping tool installed, for example. Install your desired
+base packages, e.g.</p>
+<p>apt-get update &amp;&amp; apt-get install vim man wget iputils-ping</p>
+</li>
+<li>
+<p>Hostname:</p>
+<p>echo "servername" &gt; /etc/hostname
+vi /etc/hosts
+127.0.0.1 localhost SERVERNAME</p>
+</li>
+</ul>
+<p>One essential thing that I miss in lxc is a simple list of all VMs and
+their status. But there are some separate userspace tools available
+called "lxc-tools", one of them being "lxc-status", available at
+<a href="https://github.com/haeringer/lxc-tools/blob/master/lxc-status" title="lxc-status">github.com/haeringer/lxc-tools/blob/master/lxc-status</a>. Just put that
+as an executable script in your /bin directory and you can use the
+command lxc-status to show a list of all VMs.</p>	
+
+	</article>
+
+    <p>
+	<a href="https://twitter.com/share" class="twitter-share-button" data-via="" data-lang="en" data-size="large" data-related="">Tweet</a>
+	<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+	</p>
+
+
+		  </div>	
+		  
+		  <div class="sidebar">
+
+	        <nav>
+	          <h2>Categories</h2>
+	          <ul>
+	              <li ><a href="/category/cisco.html">Cisco</a></li>
+	              <li ><a href="/category/linux.html">Linux</a></li>
+	              <li ><a href="/category/linux-networking.html">Linux, Networking</a></li>
+	              <li ><a href="/category/linux-networking-windows.html">Linux, Networking, Windows</a></li>
+	              <li class="active"><a href="/category/linux-virtualization.html">Linux, Virtualization</a></li>
+	              <li ><a href="/category/networking.html">Networking</a></li>
+	              <li ><a href="/category/virtualization.html">Virtualization</a></li>
+	              <li ><a href="/category/windows.html">Windows</a></li>
+	          </ul>
+	        </nav>
+
+
+
+		  </div>
+
+	  </div>
+
+      <footer>
+		<p role="contentinfo">
+		  © 2013 ben - Proudly powered by <a href="http://alexis.notmyidea.org/pelican/">pelican</a>. Theme <a href="https://github.com/fle/pelican-simplegrey">pelican-simplegrey</a>.
+    	</p>
+
+	  </footer>	
+
+	</div>
+	
+
+</body>
+</html>

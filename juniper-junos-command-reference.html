@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="">	
+<head>
+	<meta charset="utf-8"/>
+	<title>Juniper JunOS command reference - kb</title>	
+	<meta name="author" content="ben">
+	
+
+	<meta name="description" content="When it comes to CLI syntax and handling, some network hardware vendors more or less try to copy or at least lean on Cisco's IOS. Some may call it lame, but it definitely makes life easier, because you get on an unknown device and the chance to just guess ...">
+
+
+	<link rel="top" href="#" /><link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,300italic,400italic,600italic|Source+Code+Pro' rel='stylesheet' type='text/css'></link>
+	<link rel="stylesheet" href="/theme/css/main.css" type="text/css" />
+		
+
+</head>
+	
+<body>
+
+    <div class="container">
+	  
+	  <header role="banner">
+	    <div class="feeds">
+	    </div>
+		<a href="" class="title">kb</a>
+      </header>
+	
+	  <div class="wrapper">
+
+		  <div role="main" class="content">
+	<article class="full">
+			
+		<h1>Juniper JunOS command reference</h1>
+		
+<div class="metadata">
+  <time datetime="2012-06-03T19:43:00" pubdate>So 03 Juni 2012</time>
+    <address class="vcard author">
+      by <a class="url fn" href="/author/ben.html">ben</a>
+    </address>
+  in <a href="/category/networking.html">Networking</a>
+<p class="tags">tagged <a href="/tag/cisco-ios.html">Cisco IOS</a>, <a href="/tag/command-reference.html">Command reference</a>, <a href="/tag/juniper.html">Juniper</a>, <a href="/tag/junos.html">JunOS</a></p></div>		
+		<p>When it comes to CLI syntax and handling, some network hardware vendors
+more or less try to copy or at least lean on Cisco's IOS. Some may call
+it lame, but it definitely makes life easier, because you get on an
+unknown device and the chance to just guess the right commands is pretty
+high. Juniper is different. Being mainly used to Cisco and Enterasys, I
+was pretty much lost - although there are still similarities. Here's an
+overview of some basic commands for Juniper's JunOS, especially for
+people coming from Cisco IOS ;)<br />
+First Hint: Auto-completion is done with Space instead of Tab.</p>
+<p>Show complete configuration in JunOS hierarchy style:</p>
+<div class="highlight"><pre><span class="o">&gt;</span> <span class="n">show</span> <span class="n">configuration</span>
+</pre></div>
+
+
+<p>A more IOS-like <code>show run</code> without the hierarchy structure:</p>
+<div class="highlight"><pre><span class="o">&gt;</span> <span class="n">show</span> <span class="n">configuration</span> <span class="o">|</span> <span class="n">display</span> <span class="n">set</span>
+</pre></div>
+
+
+<p>Go into config mode (<code>conf t</code>):<!--more--></p>
+<div class="highlight"><pre><span class="o">&gt;</span> <span class="n">configure</span>
+</pre></div>
+
+
+<p>Go into subcategory, e.g. interfaces:</p>
+<div class="highlight"><pre><span class="c"># edit interfaces fe-1/0/0 unit 0</span>
+</pre></div>
+
+
+<p>Three levels/categories up:</p>
+<div class="highlight"><pre><span class="c"># up 3</span>
+</pre></div>
+
+
+<p>Equivalents to IOS pipe commands <code>.. | include</code> and <code>.. | exclude</code>:</p>
+<div class="highlight"><pre><span class="c"># .. | match</span>
+<span class="c"># .. | except</span>
+</pre></div>
+
+
+<p>The following is a very cool feature of JunOS that IOS doesn't offer.
+Commands are not transfered to the running configuration immediately,
+but are saved to a temporary storage. You can verify a set of commands
+before commiting and you can set an automatic rollback in the event you
+messed up something and cannot access the device anymore. So no need to
+restart the device for a rollback like on IOS with <code>reload in ..</code></p>
+<p>Verify commands:</p>
+<div class="highlight"><pre><span class="c"># commit check</span>
+</pre></div>
+
+
+<p>Commit the commands and transfer them to the running config:</p>
+<div class="highlight"><pre><span class="c"># commit</span>
+</pre></div>
+
+
+<p>Commit the commands and set automatic rollback if the change was not
+confirmed after 1 minute:</p>
+<div class="highlight"><pre><span class="c"># commit confirmed 1</span>
+</pre></div>
+
+
+<p>Show all uncommited commands:</p>
+<div class="highlight"><pre><span class="c"># show | compare</span>
+</pre></div>
+
+
+<p>Delete all uncommited commands:</p>
+<div class="highlight"><pre><span class="c"># rollback</span>
+</pre></div>
+
+
+<p>Equivalent to IOS <code>show ip interface brief</code>:</p>
+<div class="highlight"><pre><span class="c"># show interfaces terse</span>
+</pre></div>
+
+
+<p>IOS <code>show interface fe1/0/1</code> &amp; plus L2 error output:</p>
+<div class="highlight"><pre><span class="c"># show interfaces fa-1/0/1 detail</span>
+<span class="c"># show interfaces fa-1/0/1 extensive</span>
+</pre></div>
+
+
+<p>VLAN overview (note: interfaces without descriptions are not
+displayed!):</p>
+<div class="highlight"><pre><span class="c"># show interfaces descriptions</span>
+</pre></div>
+
+
+<p>VLAN configuration:</p>
+<div class="highlight"><pre><span class="c"># show conf interface xe-2/2/0.2</span>
+</pre></div>
+
+
+<p>STP config:</p>
+<div class="highlight"><pre><span class="c"># show 802</span>
+</pre></div>
+
+
+<p>Configure VLAN tagging for VLAN 150, a logical interface 150 (IOS
+subinterface = JunOS logical interface unit!) + IP adress in subnet
+.150:</p>
+<div class="highlight"><pre><span class="c"># edit interfaces fe-1/0/1</span>
+<span class="c"># set vlan-tagging</span>
+<span class="c"># set unit 150 vlan-id 150</span>
+<span class="c"># set unit 150 family inet address 192.168.150.1/24</span>
+</pre></div>
+
+
+<p>IOS <code>show ip route</code>; set static + default route:</p>
+<div class="highlight"><pre><span class="c"># show route</span>
+<span class="c"># set static route 10.11.0.0/24 next-hop 10.210.8.190</span>
+<span class="c"># set static route default next-hop 10.210.8.190</span>
+</pre></div>
+
+
+<p>Routing troubleshooting - show unused routes etc.:</p>
+<div class="highlight"><pre><span class="c"># show route hidden (extensive)</span>
+<span class="c"># show route 172.16.24.0/21 (exact) (detail/extensive)</span>
+</pre></div>
+
+
+<p>OSPF:</p>
+<div class="highlight"><pre><span class="c"># edit protocols ospf</span>
+<span class="c"># set area 2 interface fe-0/0/0.0</span>
+<span class="c"># set area 2 stub</span>
+</pre></div>	
+
+	</article>
+
+    <p>
+	<a href="https://twitter.com/share" class="twitter-share-button" data-via="" data-lang="en" data-size="large" data-related="">Tweet</a>
+	<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+	</p>
+
+
+		  </div>	
+		  
+		  <div class="sidebar">
+
+	        <nav>
+	          <h2>Categories</h2>
+	          <ul>
+	              <li ><a href="/category/cisco.html">Cisco</a></li>
+	              <li ><a href="/category/linux.html">Linux</a></li>
+	              <li ><a href="/category/linux-networking.html">Linux, Networking</a></li>
+	              <li ><a href="/category/linux-networking-windows.html">Linux, Networking, Windows</a></li>
+	              <li ><a href="/category/linux-virtualization.html">Linux, Virtualization</a></li>
+	              <li class="active"><a href="/category/networking.html">Networking</a></li>
+	              <li ><a href="/category/virtualization.html">Virtualization</a></li>
+	              <li ><a href="/category/windows.html">Windows</a></li>
+	          </ul>
+	        </nav>
+
+
+
+		  </div>
+
+	  </div>
+
+      <footer>
+		<p role="contentinfo">
+		  © 2013 ben - Proudly powered by <a href="http://alexis.notmyidea.org/pelican/">pelican</a>. Theme <a href="https://github.com/fle/pelican-simplegrey">pelican-simplegrey</a>.
+    	</p>
+
+	  </footer>	
+
+	</div>
+	
+
+</body>
+</html>

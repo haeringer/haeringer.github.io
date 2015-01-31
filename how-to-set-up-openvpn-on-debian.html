@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="">	
+<head>
+	<meta charset="utf-8"/>
+	<title>How to set up OpenVPN on Debian - kb</title>	
+	<meta name="author" content="ben">
+	
+
+	<meta name="description" content="This is how to set up OpenVPN to connect from a remote Windows client to a Debian server. Download & install OpenVPN on the Debian server apt-get install openvpn Create two subdirectories "keys": mkdir /etc/openvpn/keys mkdir /usr/share/doc/openvpn/examples/easy-rsa/2.0/keys The program ...">
+
+
+	<link rel="top" href="#" /><link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,300italic,400italic,600italic|Source+Code+Pro' rel='stylesheet' type='text/css'></link>
+	<link rel="stylesheet" href="/theme/css/main.css" type="text/css" />
+		
+
+</head>
+	
+<body>
+
+    <div class="container">
+	  
+	  <header role="banner">
+	    <div class="feeds">
+	    </div>
+		<a href="" class="title">kb</a>
+      </header>
+	
+	  <div class="wrapper">
+
+		  <div role="main" class="content">
+	<article class="full">
+			
+		<h1>How to set up OpenVPN on Debian</h1>
+		
+<div class="metadata">
+  <time datetime="2010-11-25T17:14:00" pubdate>Do 25 November 2010</time>
+    <address class="vcard author">
+      by <a class="url fn" href="/author/ben.html">ben</a>
+    </address>
+  in <a href="/category/linux-networking-windows.html">Linux, Networking, Windows</a>
+<p class="tags">tagged <a href="/tag/certificates.html">Certificates</a>, <a href="/tag/linux-networking.html">Linux networking</a>, <a href="/tag/vpn.html">VPN</a>, <a href="/tag/windows-client.html">Windows client</a></p></div>		
+		<p>This is how to set up OpenVPN to connect from a remote Windows client to
+a Debian server.<br />
+</p>
+<p><strong>Download &amp; install OpenVPN on the Debian server</strong></p>
+<div class="highlight"><pre><span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">openvpn</span>
+</pre></div>
+
+
+<p>Create two subdirectories "keys":</p>
+<div class="highlight"><pre><span class="n">mkdir</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">openvpn</span><span class="o">/</span><span class="n">keys</span>
+<span class="n">mkdir</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">doc</span><span class="o">/</span><span class="n">openvpn</span><span class="o">/</span><span class="n">examples</span><span class="o">/</span><span class="n">easy</span><span class="o">-</span><span class="n">rsa</span><span class="o">/</span><span class="mf">2.0</span><span class="o">/</span><span class="n">keys</span>
+</pre></div>
+
+
+<!--more-->
+
+<p>The program EasyRSA was installed together with OpenVPN. We use it
+to...<br />
+</p>
+<p><strong>Generate the necessary keys and certificates</strong></p>
+<p>Open the vars file in /usr/share/doc/openvpn/examples/easy-rsa/2.0/ with
+a text editor and replace the following sample data at the end of the
+file with your data:</p>
+<div class="highlight"><pre><span class="n">vi</span> <span class="n">vars</span>
+
+<span class="n">set</span> <span class="n">KEY_COUNTRY</span><span class="o">=</span><span class="n">US</span>
+<span class="n">set</span> <span class="n">KEY_PROVINCE</span><span class="o">=</span><span class="n">CA</span>
+<span class="n">set</span> <span class="n">KEY_CITY</span><span class="o">=</span><span class="n">SanFrancisco</span>
+<span class="n">set</span> <span class="n">KEY_ORG</span><span class="o">=</span><span class="n">OpenVPN</span>
+<span class="n">set</span> <span class="n">KEY_EMAIL</span><span class="o">=</span><span class="n">mail</span><span class="err">@</span><span class="n">host</span><span class="p">.</span><span class="n">domain</span>
+</pre></div>
+
+
+<p>Save the file, source it and build CA key and certificate (CA =
+certification authority). You will be asked to enter some information,
+but as you will see, most of the fields already contain the data you
+have entered into the vars file.</p>
+<div class="highlight"><pre><span class="n">source</span> <span class="n">vars</span>
+<span class="p">.</span><span class="o">/</span><span class="n">clean</span><span class="o">-</span><span class="n">all</span>
+<span class="p">.</span><span class="o">/</span><span class="n">build</span><span class="o">-</span><span class="n">ca</span>
+</pre></div>
+
+
+<p>Now create key &amp; certificate for the server, going through a similar
+procedure and confirming the questions at the end with y:</p>
+<div class="highlight"><pre><span class="p">.</span><span class="o">/</span><span class="n">build</span><span class="o">-</span><span class="n">key</span><span class="o">-</span><span class="n">server</span> <span class="n">EXAMPLESERV01</span>
+</pre></div>
+
+
+<p>create key &amp; certificate for the client:</p>
+<div class="highlight"><pre><span class="p">.</span><span class="o">/</span><span class="n">build</span><span class="o">-</span><span class="n">key</span> <span class="n">EXAMPLECLNT01</span>
+</pre></div>
+
+
+<p>and create the Diffie Hellmann parameters with</p>
+<div class="highlight"><pre><span class="p">.</span><span class="o">/</span><span class="n">build</span><span class="o">-</span><span class="n">dh</span>
+</pre></div>
+
+
+<p>Copy the key, crt and pem files to the OpenVPN subdirectory keys:</p>
+<div class="highlight"><pre><span class="n">cp</span> <span class="o">*</span><span class="p">.</span><span class="n">key</span> <span class="o">*</span><span class="p">.</span><span class="n">crt</span> <span class="o">*</span><span class="p">.</span><span class="n">pem</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">openvpn</span><span class="o">/</span><span class="n">keys</span>
+</pre></div>
+
+
+<p><strong>Edit the configuration file</strong></p>
+<p>In /usr/share/doc/openvpn/examples/sample-config-files you can find a
+set of sample configuration files ;) Copy server.conf.gz to the openvpn
+configs directory, unzip it and open it for editing:</p>
+<div class="highlight"><pre><span class="n">cp</span> <span class="n">server</span><span class="p">.</span><span class="n">conf</span><span class="p">.</span><span class="n">gz</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">openvpn</span>
+<span class="n">gunzip</span> <span class="n">server</span><span class="p">.</span><span class="n">conf</span><span class="p">.</span><span class="n">gz</span>
+<span class="n">vi</span> <span class="n">server</span><span class="p">.</span><span class="n">conf</span>
+</pre></div>
+
+
+<p>You can leave all parameters as they are, except for the paths to the
+files we just created and the IP address of your home net:</p>
+<div class="highlight"><pre><span class="n">ca</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">openvpn</span><span class="o">/</span><span class="n">keys</span><span class="o">/</span><span class="n">ca</span><span class="p">.</span><span class="n">crt</span>
+<span class="n">cert</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">openvpn</span><span class="o">/</span><span class="n">keys</span><span class="o">/</span><span class="n">EXAMPLESERV01</span><span class="p">.</span><span class="n">crt</span>
+<span class="n">key</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">openvpn</span><span class="o">/</span><span class="n">keys</span><span class="o">/</span><span class="n">EXAMPLESERV01</span><span class="p">.</span><span class="n">key</span>
+<span class="n">dh</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">openvpn</span><span class="o">/</span><span class="n">keys</span><span class="o">/</span><span class="n">dh1024</span><span class="p">.</span><span class="n">pem</span>
+<span class="n">push</span> <span class="s">&quot;route 192.168.2.0 255.255.255.0&quot;</span>
+</pre></div>
+
+
+<p>The push parameter is needed for routing packets from the OpenVPN
+network 10.8.0.0/24 (default IP) to our home network. For making this
+possible, we also need to enable IP forwarding in Debian (stays enabled
+only until the next reboot):</p>
+<div class="highlight"><pre><span class="n">echo</span> <span class="s">&quot;1&quot;</span> <span class="o">&gt;</span> <span class="o">/</span><span class="n">proc</span><span class="o">/</span><span class="n">sys</span><span class="o">/</span><span class="n">net</span><span class="o">/</span><span class="n">ipv4</span><span class="o">/</span><span class="n">ip_forward</span>
+</pre></div>
+
+
+<p>To execute this automatically after reboot, add the following line in
+your network interface config file as an additional line to eth0:</p>
+<div class="highlight"><pre><span class="n">vi</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">network</span><span class="o">/</span><span class="n">interfaces</span>
+
+<span class="n">post</span><span class="o">-</span><span class="n">up</span> <span class="n">echo</span> <span class="mi">1</span> <span class="o">&gt;</span> <span class="o">/</span><span class="n">proc</span><span class="o">/</span><span class="n">sys</span><span class="o">/</span><span class="n">net</span><span class="o">/</span><span class="n">ipv4</span><span class="o">/</span><span class="n">ip_forward</span>
+</pre></div>
+
+
+<p><strong>Download &amp; install OpenVPN on the Windows client</strong></p>
+<p><a href="http://openvpn.net/index.php/open-source/downloads.html">Download</a> and install the OpenVPN client software.</p>
+<p>Create a "keys" directory (C:Program FilesOpenVPNeasy-rsakeys), and copy
+the following files from the Debian server into it:<br />
+/etc/openvpn/keys/ca.crt<br />
+/etc/openvpn/keys/EXAMPLECLNT01.crt<br />
+/etc/openvpn/keys/EXAMPLECLNT01.key</p>
+<p>Copy the sample config file client.ovpn from C:Program
+FilesOpenVPNsample-config to ..OpenVPNconfig, and open it with a text
+editor. Again, you can leave all parameters as they are, except for the
+paths to the files we just copied, and your domain name:</p>
+<div class="highlight"><pre><span class="n">remote</span> <span class="n">example</span><span class="p">.</span><span class="n">com</span> <span class="mi">1194</span>
+<span class="n">ca</span> <span class="s">&quot;C:/Program Files/OpenVPN/easy-rsa/keys/ca.crt&quot;</span>
+<span class="n">cert</span> <span class="s">&quot;C:/Program Files/OpenVPN/easy-rsa/keys/EXAMPLECLNT01.crt&quot;</span>
+<span class="n">key</span> <span class="s">&quot;C:/Program Files/OpenVPN/easy-rsa/keys/EXAMPLECLNT01.key&quot;</span>
+</pre></div>
+
+
+<p><strong>Configure the router</strong></p>
+<p>Configure your router for port forwarding (in your router configuration
+interface, look somewhere under NAT settings). Make an entry defining
+that UDP requests at port 1194 get forwarded to the IP address of your
+Debian server.</p>
+<p><strong>Start OpenVPN</strong></p>
+<p>For testing purposes, start the OpenVPN server with</p>
+<div class="highlight"><pre><span class="n">openvpn</span> <span class="o">--</span><span class="n">config</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">openvpn</span><span class="o">/</span><span class="n">server</span><span class="p">.</span><span class="n">conf</span>
+</pre></div>
+
+
+<p>and try connect your client. If the connection doesn't work, have a look
+at the next section "troubleshooting". If the connection works, you can
+stop OpenVPN with Ctrl-C and start it as a daemon (a background
+service):</p>
+<div class="highlight"><pre><span class="n">openvpn</span> <span class="o">--</span><span class="n">daemon</span> <span class="o">--</span><span class="n">config</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">openvpn</span><span class="o">/</span><span class="n">server</span><span class="p">.</span><span class="n">conf</span>
+</pre></div>
+
+
+<p><strong>Troubleshooting</strong></p>
+<p>If the OpenVPN server doesn't start, check if you have entered all the
+paths in the server.conf correctly.</p>
+<p>If the OpenVPN Windows client has problems finding the files, use a
+simple path like C:openvpn-keys, instead of the program files directory.
+Also check the paths in the config file.</p>
+<p>When your server is running and you start the client, but there aren't
+any messages at the server saying there's a client with your IP trying
+to connect, then your client is not able to reach the server yet. Check
+the port forwarding settings on your router and test your connections
+with pings.</p>
+<p>If there are messages at your server, saying there's a client with your
+IP trying to connect, but the VPN connection doesn't work, try to change
+from UDP to TCP. You have to make the change at three places: In the
+server.conf, the client.ovpn and at the port forwarding setting on the
+router. In the config files, just uncomment <code>proto tcp</code> / comment
+<code>proto udp</code>.</p>
+<p>If the connection was established successfully but you can't reach any
+devices within your home network, change the tunnel mode by uncommenting
+<code>dev tap0</code> in the server.conf and commenting <code>dev tun</code>.</p>
+<p>To restart a running instance of the OpenVPN server (e.g. after having
+changed the configuration), use</p>
+<div class="highlight"><pre><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">init</span><span class="p">.</span><span class="n">d</span><span class="o">/</span><span class="n">openvpn</span> <span class="n">restart</span>
+</pre></div>	
+
+	</article>
+
+    <p>
+	<a href="https://twitter.com/share" class="twitter-share-button" data-via="" data-lang="en" data-size="large" data-related="">Tweet</a>
+	<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+	</p>
+
+
+		  </div>	
+		  
+		  <div class="sidebar">
+
+	        <nav>
+	          <h2>Categories</h2>
+	          <ul>
+	              <li ><a href="/category/cisco.html">Cisco</a></li>
+	              <li ><a href="/category/linux.html">Linux</a></li>
+	              <li ><a href="/category/linux-networking.html">Linux, Networking</a></li>
+	              <li class="active"><a href="/category/linux-networking-windows.html">Linux, Networking, Windows</a></li>
+	              <li ><a href="/category/linux-virtualization.html">Linux, Virtualization</a></li>
+	              <li ><a href="/category/networking.html">Networking</a></li>
+	              <li ><a href="/category/virtualization.html">Virtualization</a></li>
+	              <li ><a href="/category/windows.html">Windows</a></li>
+	          </ul>
+	        </nav>
+
+
+
+		  </div>
+
+	  </div>
+
+      <footer>
+		<p role="contentinfo">
+		  © 2013 ben - Proudly powered by <a href="http://alexis.notmyidea.org/pelican/">pelican</a>. Theme <a href="https://github.com/fle/pelican-simplegrey">pelican-simplegrey</a>.
+    	</p>
+
+	  </footer>	
+
+	</div>
+	
+
+</body>
+</html>

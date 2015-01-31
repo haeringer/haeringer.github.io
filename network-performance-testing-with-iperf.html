@@ -2,9 +2,12 @@
 <html lang="">	
 <head>
 	<meta charset="utf-8"/>
-	<title>kb</title>	
+	<title>Network performance testing with iperf - kb</title>	
 	<meta name="author" content="ben">
 	
+
+	<meta name="description" content="There are numerous tools for network performance testing, e.g. ttcp, iperf, netperf or netIO. So far I haven't tested them all, but I found iperf to be a pretty flexible, easy-to-use and convenient one. Iperf needs to be run as server on one side and as client on ...">
+
 
 	<link rel="top" href="#" /><link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,300italic,400italic,600italic|Source+Code+Pro' rel='stylesheet' type='text/css'></link>
 	<link rel="stylesheet" href="/theme/css/main.css" type="text/css" />
@@ -25,12 +28,18 @@
 	  <div class="wrapper">
 
 		  <div role="main" class="content">
-
-
-
-      <article>
-        <h1><a href="/network-performance-testing-with-iperf.html">Network performance testing with iperf</a></h1>
-        <p>There are numerous tools for network performance testing, e.g. ttcp,
+	<article class="full">
+			
+		<h1>Network performance testing with iperf</h1>
+		
+<div class="metadata">
+  <time datetime="2012-11-26T13:32:00" pubdate>Mo 26 November 2012</time>
+    <address class="vcard author">
+      by <a class="url fn" href="/author/ben.html">ben</a>
+    </address>
+  in <a href="/category/networking.html">Networking</a>
+<p class="tags">tagged <a href="/tag/performance-testing.html">Performance Testing</a></p></div>		
+		<p>There are numerous tools for network performance testing, e.g. ttcp,
 iperf, netperf or netIO. So far I haven't tested them all, but I found
 iperf to be a pretty flexible, easy-to-use and convenient one. Iperf
 needs to be run as server on one side and as client on the other. It is
@@ -121,83 +130,15 @@ with the standard settings.</p>
 there is a workaround. Open two (or more) SSH sessions to the router and
 start TTCP receivers/servers with different ports on each one - the same
 on the client; two instances of iperf with the different ports but the
-same IP address.</p>
-      </article>
+same IP address.</p>	
 
-      <hr />
+	</article>
 
-        <div>
-          <h3>Last posts</h3>
-          <ol class="archive">
-    
+    <p>
+	<a href="https://twitter.com/share" class="twitter-share-button" data-via="" data-lang="en" data-size="large" data-related="">Tweet</a>
+	<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+	</p>
 
-
-      <li>
-<a href="/find-out-primary-nameserver-for-domain.html" rel="bookmark" title="Permalink to Find out the primary nameserver for a domain">Find out the primary nameserver for a domain</a>
-  <time datetime="2012-07-25T14:48:00" pubdate>Mi 25 Juli 2012</time>
-<p class="tags">tags: <a href="/tag/dns.html">DNS</a></p></a>      </li>
-
-
-      <li>
-<a href="/juniper-junos-command-reference.html" rel="bookmark" title="Permalink to Juniper JunOS command reference">Juniper JunOS command reference</a>
-  <time datetime="2012-06-03T19:43:00" pubdate>So 03 Juni 2012</time>
-<p class="tags">tags: <a href="/tag/cisco-ios.html">Cisco IOS</a><a href="/tag/command-reference.html">Command reference</a><a href="/tag/juniper.html">Juniper</a><a href="/tag/junos.html">JunOS</a></p></a>      </li>
-
-
-      <li>
-<a href="/ip-tables-basics.html" rel="bookmark" title="Permalink to IP Tables Basics">IP Tables Basics</a>
-  <time datetime="2012-04-17T15:22:00" pubdate>Di 17 April 2012</time>
-<p class="tags">tags: <a href="/tag/command-reference.html">Command reference</a><a href="/tag/linux-networking.html">Linux networking</a></p></a>      </li>
-
-
-      <li>
-<a href="/ssh-public-key-method.html" rel="bookmark" title="Permalink to SSH public key method">SSH public key method</a>
-  <time datetime="2012-03-14T18:06:00" pubdate>Mi 14 März 2012</time>
-<p class="tags">tags: <a href="/tag/linux-networking.html">Linux networking</a><a href="/tag/management.html">Management</a><a href="/tag/putty.html">PuTTY</a><a href="/tag/ssh.html">SSH</a><a href="/tag/windows-client.html">Windows client</a></p></a>      </li>
-
-
-      <li>
-<a href="/mysql-administration-commands.html" rel="bookmark" title="Permalink to MySQL administration commands">MySQL administration commands</a>
-  <time datetime="2012-02-10T20:54:00" pubdate>Fr 10 Februar 2012</time>
-<p class="tags">tags: <a href="/tag/command-reference.html">Command reference</a><a href="/tag/mysql.html">MySQL</a><a href="/tag/sql.html">SQL</a></p></a>      </li>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-          </ol>
-        </div>
 
 		  </div>	
 		  
@@ -211,7 +152,7 @@ same IP address.</p>
 	              <li ><a href="/category/linux-networking.html">Linux, Networking</a></li>
 	              <li ><a href="/category/linux-networking-windows.html">Linux, Networking, Windows</a></li>
 	              <li ><a href="/category/linux-virtualization.html">Linux, Virtualization</a></li>
-	              <li ><a href="/category/networking.html">Networking</a></li>
+	              <li class="active"><a href="/category/networking.html">Networking</a></li>
 	              <li ><a href="/category/virtualization.html">Virtualization</a></li>
 	              <li ><a href="/category/windows.html">Windows</a></li>
 	          </ul>

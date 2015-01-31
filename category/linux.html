@@ -1,0 +1,521 @@
+<!doctype html>
+<html lang="">	
+<head>
+	<meta charset="utf-8"/>
+	<title>Linux - kb</title>	
+	<meta name="author" content="ben">
+	
+
+	<link rel="top" href="#" /><link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,300italic,400italic,600italic|Source+Code+Pro' rel='stylesheet' type='text/css'></link>
+	<link rel="stylesheet" href="/theme/css/main.css" type="text/css" />
+		
+
+</head>
+	
+<body>
+
+    <div class="container">
+	  
+	  <header role="banner">
+	    <div class="feeds">
+	    </div>
+		<a href="" class="title">kb</a>
+      </header>
+	
+	  <div class="wrapper">
+
+		  <div role="main" class="content">
+
+<h1>Posts categorized under: Linux</h1>
+
+<article class="summary">
+<div class="metadata">
+  <time datetime="2012-02-10T20:54:00" pubdate>Fr 10 Februar 2012</time>
+    <address class="vcard author">
+      by <a class="url fn" href="/author/ben.html">ben</a>
+    </address>
+  in <a href="/category/linux.html">Linux</a>
+<p class="tags">tagged <a href="/tag/command-reference.html">Command reference</a>, <a href="/tag/mysql.html">MySQL</a>, <a href="/tag/sql.html">SQL</a></p></div>  <div>
+    <h2>
+      <a href="/mysql-administration-commands.html" rel="bookmark" title="Permalink to MySQL administration commands">MySQL administration commands</a>
+    </h2>
+    <p><p>A small command reference for MySQL administration on Linux.<br />
+</p>
+<p>Show MySQL server status:</p>
+<div class="highlight"><pre><span class="c"># /etc/init.d/mysql status</span>
+</pre></div>
+
+
+<p>Location of MySQL configuration files:<br />
+<code>/etc/my.cnf</code> - global configuration<br />
+<code>/var/lib/mysql/my.cnf</code> - configuration per database<br />
+<code>~/.my.cnf</code> - configuration per user</p>
+<p>Enter MySQL command line as user root with password ...</p></p>
+  </div>
+</article><article class="summary">
+<div class="metadata">
+  <time datetime="2011-09-20T15:11:00" pubdate>Di 20 September 2011</time>
+    <address class="vcard author">
+      by <a class="url fn" href="/author/ben.html">ben</a>
+    </address>
+  in <a href="/category/linux.html">Linux</a>
+<p class="tags">tagged <a href="/tag/debian.html">Debian</a>, <a href="/tag/raid.html">RAID</a></p></div>  <div>
+    <h2>
+      <a href="/configuring-a-raid1-with-mdadm-on-debian-squeeze.html" rel="bookmark" title="Permalink to Configuring a RAID1 with mdadm on Debian Squeeze">Configuring a RAID1 with mdadm on Debian Squeeze</a>
+    </h2>
+    <p><p>Generally I have always thought software raids to be insecure, difficult
+to handle and more a risk than a safety measure. But a RAID1 with the
+Linux software <strong>mdadm</strong> is a safe mirror of your harddisk - in case of
+a HD failure, you can put the remaining disk into any ...</p></p>
+  </div>
+</article><article class="summary">
+<div class="metadata">
+  <time datetime="2011-06-24T13:08:00" pubdate>Fr 24 Juni 2011</time>
+    <address class="vcard author">
+      by <a class="url fn" href="/author/ben.html">ben</a>
+    </address>
+  in <a href="/category/linux.html">Linux</a>
+<p class="tags">tagged <a href="/tag/dlna.html">DLNA</a>, <a href="/tag/media-server.html">Media server</a>, <a href="/tag/upnp.html">UPNP</a></p></div>  <div>
+    <h2>
+      <a href="/how-to-set-up-a-dlna-upnp-media-server-with-minidlna.html" rel="bookmark" title="Permalink to How to set up a DLNA (UPnP) Media Server with MiniDLNA">How to set up a DLNA (UPnP) Media Server with MiniDLNA</a>
+    </h2>
+    <p><p>MiniDLNA is a Linux server software with the aim of being fully
+compliant with DLNA/UPnP-AV clients. It is developed by a NETGEAR
+employee for the ReadyNAS product line. It is a great, lightweight, fast
+and simple alternative to older media servers like TwonkyServer or
+Mediatomb. This is about how ...</p></p>
+  </div>
+</article><article class="summary">
+<div class="metadata">
+  <time datetime="2010-04-08T15:19:00" pubdate>Do 08 April 2010</time>
+    <address class="vcard author">
+      by <a class="url fn" href="/author/ben.html">ben</a>
+    </address>
+  in <a href="/category/linux.html">Linux</a>
+<p class="tags">tagged <a href="/tag/smb.html">SMB</a>, <a href="/tag/usb.html">USB</a></p></div>  <div>
+    <h2>
+      <a href="/access-an-ntfs-usb-drive-over-a-samba-share.html" rel="bookmark" title="Permalink to Access an NTFS USB drive over a Samba share">Access an NTFS USB drive over a Samba share</a>
+    </h2>
+    <p><p>I needed to plug an NTFS formatted USB harddisk into my Debian home server (with Samba
+file services already running on it) and access it from my PCs in the network. 
+To achieve full read/write access for the Windows users, you need the driver NTFS-3G.</p>
+<p>Install ntfs-3g</p>
+<div class="highlight"><pre><span class="n">apt</span><span class="o">-</span><span class="n">get ...</span></pre></div></p>
+  </div>
+</article><article class="summary">
+<div class="metadata">
+  <time datetime="2010-03-19T13:30:00" pubdate>Fr 19 März 2010</time>
+    <address class="vcard author">
+      by <a class="url fn" href="/author/ben.html">ben</a>
+    </address>
+  in <a href="/category/linux.html">Linux</a>
+<p class="tags">tagged <a href="/tag/arm.html">ARM</a>, <a href="/tag/ipp.html">IPP</a>, <a href="/tag/printing.html">Printing</a>, <a href="/tag/windows-client.html">Windows client</a></p></div>  <div>
+    <h2>
+      <a href="/share-usb-printer-on-the-network-via-cups-and-ipp.html" rel="bookmark" title="Permalink to Share USB Printer on the network via CUPS and IPP">Share USB Printer on the network via CUPS and IPP</a>
+    </h2>
+    <p><p>The scenario: I have a USB printer (Samsung ML-1915) and want to be able
+to use it from all workstations in the network. As it is not a network
+printer, I connect it to my NAS (Debian/Ubuntu Server) and share the
+printer via CUPS (Common UNIX Printing System). You ...</p></p>
+  </div>
+</article><article class="summary">
+<div class="metadata">
+  <time datetime="2009-09-18T22:40:00" pubdate>Fr 18 September 2009</time>
+    <address class="vcard author">
+      by <a class="url fn" href="/author/ben.html">ben</a>
+    </address>
+  in <a href="/category/linux.html">Linux</a>
+<p class="tags">tagged <a href="/tag/command-reference.html">Command reference</a></p></div>  <div>
+    <h2>
+      <a href="/vi-editor-commands.html" rel="bookmark" title="Permalink to Vi Editor commands">Vi Editor commands</a>
+    </h2>
+    <p><table style="border-collapse: collapse; table-layout: fixed; width: 351pt;" border="0" width="468" cellspacing="0" cellpadding="0">
+<tbody>
+<tr style="height: 15pt;">
+<td class="xl6421779" style="height: 15pt; width: 171pt;" colspan="3" width="228" height="20">
+**Quit & Save**
+
+</td>
+<td class="xl1521779" style="width: 60pt;" width="80">
+</td>
+<td class="xl1521779" style="width: 60pt;" width="80">
+</td>
+<td class="xl1521779" style="width: 60pt;" width="80">
+</td>
+</tr>
+<tr style="height: 15pt;">
+<td class="xl6321779" style="height: 15pt;" height="20">
+</td>
+<td class="xl1521779">
+</td>
+<td class="xl1521779">
+</td>
+<td class="xl1521779">
+</td>
+<td class="xl1521779">
+</td>
+<td class="xl1521779">
+</td>
+</tr>
+<tr style="height: 15pt;">
+<td class="xl1521779" style="height: 15pt;" height="20">
+:w
+
+</td>
+<td class="xl1521779" colspan="2">
+Save
+
+</td>
+<td class="xl1521779">
+</td>
+<td class="xl1521779">
+</td>
+<td class="xl1521779">
+</td>
+</tr>
+<tr style="height: 15pt;">
+<td class="xl1521779" style="height: 15pt;" height="20">
+:x
+
+</td>
+<td class="xl1521779" colspan="2">
+Save & exit
+
+</td>
+<td class="xl1521779">
+</td>
+<td class="xl1521779">
+</td>
+<td class="xl1521779">
+</td>
+</tr>
+<tr style="height: 15pt;">
+<td class="xl1521779" style="height: 15pt;" height="20">
+:q
+
+</td>
+<td class="xl1521779" colspan="4">
+Quit if there have been no changes
+
+</td>
+<td class="xl1521779">
+</td>
+</tr>
+<tr style="height: 15pt;">
+<td class="xl1521779" style="height: 15pt;" height="20">
+:q!
+
+</td>
+<td class="xl1521779" colspan="3">
+Quit & discard changes
+
+</td>
+<td class="xl1521779">
+</td>
+<td class="xl1521779">
+</td>
+</tr>
+<tr style="height: 15pt;">
+<td class="xl1521779" style="height: 15pt;" height="20">
+</td>
+<td class="xl1521779">
+</td>
+<td class="xl1521779">
+</td>
+<td class="xl1521779">
+</td>
+<td class="xl1521779">
+</td>
+<td class="xl1521779">
+</td>
+</tr>
+<tr style="height: 15pt;">
+<td class="xl1521779" style="height: 15pt;" height="20">
+</td>
+<td class="xl1521779">
+</td>
+<td class="xl1521779">
+</td>
+<td class="xl1521779">
+</td>
+<td class="xl1521779">
+</td>
+<td class="xl1521779">
+</td>
+</tr>
+<tr style="height: 15pt;">
+<td class="xl6421779" style="height: 15pt;" colspan="3" height="20">
+**Insert / Edit**
+
+</td>
+<td class="xl1521779">
+</td>
+<td class="xl1521779">
+</td>
+<td class="xl1521779">
+</td>
+</tr>
+<tr style="height: 15pt;">
+<td class="xl6321779" style="height: 15pt;" height="20">
+</td>
+<td class="xl1521779">
+</td>
+<td class="xl1521779">
+</td>
+<td class="xl1521779">
+</td>
+<td class="xl1521779">
+</td>
+<td class="xl1521779">
+</td>
+</tr>
+<tr style="height: 15pt;">
+<td class="xl1521779" style="height: 15pt;" height="20">
+i
+
+</td>
+<td class="xl1521779" colspan="3">
+Insert mode
+
+</td>
+<td class="xl1521779">
+</td>
+<td class="xl1521779">
+</td>
+<td class="xl1521779">
+</td>
+</tr>
+<tr style="height: 15pt;">
+<td class="xl1521779" style="height: 15pt;" height="20">
+I
+
+</td>
+<td class="xl1521779" colspan="3">
+Insert at beginning of line
+
+</td>
+<td class="xl1521779">
+</td>
+<td class="xl1521779">
+</td>
+<td class="xl1521779">
+</td>
+</tr>
+<tr style="height: 15pt;">
+<td class="xl1521779" style="height: 15pt;" height="20">
+A
+
+</td>
+<td class="xl1521779" colspan="3">
+Append to end of line
+
+</td>
+<td class="xl1521779">
+</td>
+<td class="xl1521779">
+</td>
+<td class="xl1521779">
+</td>
+</tr>
+<tr style="height: 15pt;">
+<td class="xl1521779" style="height: 15pt;" height="20">
+R
+
+</td>
+<td class="xl1521779" colspan="3">
+Replace mode
+
+</td>
+<td class="xl1521779">
+</td>
+<td class="xl1521779">
+</td>
+<td class="xl1521779">
+</td>
+</tr>
+<tr style="height: 15pt;">
+<td class="xl1521779" style="height: 15pt;" height="20">
+r
+
+</td>
+<td class="xl1521779" colspan="3">
+Replace a single character
+
+</td>
+<td class="xl1521779">
+</td>
+<td class="xl1521779">
+</td>
+<td class="xl1521779">
+</td>
+</tr>
+<tr style="height: 15pt;">
+<td class="xl1521779" style="height: 15pt;" height="20">
+Esc
+
+</td>
+<td class="xl1521779" colspan="3">
+Exit insert or replace mode ...</td></tr></tbody></table></p>
+  </div>
+</article><article class="summary">
+<div class="metadata">
+  <time datetime="2009-09-09T12:58:00" pubdate>Mi 09 September 2009</time>
+    <address class="vcard author">
+      by <a class="url fn" href="/author/ben.html">ben</a>
+    </address>
+  in <a href="/category/linux.html">Linux</a>
+<p class="tags">tagged <a href="/tag/command-reference.html">Command reference</a>, <a href="/tag/shell.html">Shell</a></p></div>  <div>
+    <h2>
+      <a href="/linux-shell-commands-categorized.html" rel="bookmark" title="Permalink to Linux shell commands (categorized)">Linux shell commands (categorized)</a>
+    </h2>
+    <p><table style="border-collapse: collapse; table-layout: fixed; width: 419pt;" width="558" border="0" cellspacing="0" cellpadding="0">
+<colgroup>
+<col style="width: 101pt;" width="134">
+</col>
+<col style="width: 318pt;" width="424">
+</col>
+</colgroup>
+<tbody>
+<tr style="height: 10pt;">
+<td class="xl632619" style="height: 10pt; width: 419pt;" colspan="2" width="558" height="15">
+**Help**
+
+</td>
+</tr>
+<tr style="height: 10pt;">
+<td class="xl102619" style="height: 10pt;" height="15">
+</td>
+<td class="xl102619">
+</td>
+</tr>
+<tr style="height: 10pt;">
+<td class="xl102619" style="height: 10pt;" height="15">
+<span class="font52619">*command*</span><span
+class="font02619">--help</span>
+
+</td>
+<td class="xl102619">
+show a brief help text
+
+</td>
+</tr>
+<tr style="height: 10pt;">
+<td class="xl102619" style="height: 10pt;" height="15">
+man <span class="font52619">*command*</span>
+
+</td>
+<td class="xl102619">
+show the man page of a command
+
+</td>
+</tr>
+<tr style="height: 10pt;">
+<td class="xl102619" style="height: 10pt;" height="15">
+</td>
+<td class="xl102619">
+</td>
+</tr>
+<tr style="height: 10pt;">
+<td class="xl102619" style="height: 10pt;" height="15">
+</td>
+<td class="xl102619">
+</td>
+</tr>
+<tr style="height: 10pt;">
+<td class="xl632619" style="height: 10pt;" colspan="2" height="15">
+**Files and directories**
+
+</td>
+</tr>
+<tr style="height: 10pt;">
+<td class="xl102619" style="height: 10pt;" height="15">
+</td>
+<td class="xl102619">
+</td>
+</tr>
+<tr style="height: 10pt;">
+<td class="xl102619" style="height: 10pt;" height="15">
+cat
+
+</td>
+<td class="xl102619">
+display the contents of a file
+
+</td>
+</tr>
+<tr style="height: 10pt;">
+<td class="xl102619" style="height: 10pt;" height="15">
+cd
+
+</td>
+<td class="xl102619">
+change to the home directory
+
+</td>
+</tr>
+<tr style="height: 10pt;">
+<td class="xl102619" style="height: 10pt;" height="15">
+cd <span class="font52619">*directory*</span>
+
+</td>
+<td class="xl102619">
+change to this directory
+
+</td>
+</tr>
+<tr style="height: 10pt;">
+<td class="xl102619" style="height: 10pt;" height="15">
+cd ..
+
+</td>
+<td class="xl102619">
+change one directory up
+
+</td>
+</tr>
+<tr style="height: 10pt;">
+<td class="xl102619" style="height: 10pt;" height="15">
+cd /
+
+</td>
+<td class="xl102619">
+change to ...</td></tr></tbody></table></p>
+  </div>
+</article>
+
+		  </div>	
+		  
+		  <div class="sidebar">
+
+	        <nav>
+	          <h2>Categories</h2>
+	          <ul>
+	              <li ><a href="/category/cisco.html">Cisco</a></li>
+	              <li class="active"><a href="/category/linux.html">Linux</a></li>
+	              <li ><a href="/category/linux-networking.html">Linux, Networking</a></li>
+	              <li ><a href="/category/linux-networking-windows.html">Linux, Networking, Windows</a></li>
+	              <li ><a href="/category/linux-virtualization.html">Linux, Virtualization</a></li>
+	              <li ><a href="/category/networking.html">Networking</a></li>
+	              <li ><a href="/category/virtualization.html">Virtualization</a></li>
+	              <li ><a href="/category/windows.html">Windows</a></li>
+	          </ul>
+	        </nav>
+
+
+
+		  </div>
+
+	  </div>
+
+      <footer>
+		<p role="contentinfo">
+		  © 2013 ben - Proudly powered by <a href="http://alexis.notmyidea.org/pelican/">pelican</a>. Theme <a href="https://github.com/fle/pelican-simplegrey">pelican-simplegrey</a>.
+    	</p>
+
+	  </footer>	
+
+	</div>
+	
+
+</body>
+</html>
