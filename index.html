@@ -1,237 +1,950 @@
-<!doctype html>
-<html lang="">	
-<head>
-	<meta charset="utf-8"/>
-	<title>kb</title>	
-	<meta name="author" content="ben">
-	
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <title>Home - kb.haeringer.org</title>
+    <link href="http://fonts.googleapis.com/css?family=Arimo:400,700|Inika" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="/theme/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="/theme/pastie.css" />
+    <link href="/" type="application/atom+xml" rel="alternate" title="kb.haeringer.org Atom Feed" />
 
-	<link rel="top" href="#" /><link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,300italic,400italic,600italic|Source+Code+Pro' rel='stylesheet' type='text/css'></link>
-	<link rel="stylesheet" href="/theme/css/main.css" type="text/css" />
-		
 
-</head>
-	
-<body>
+  </head>
 
+  <body>
     <div class="container">
-	  
-	  <header role="banner">
-	    <div class="feeds">
-	    </div>
-		<a href="" class="title">kb</a>
-      </header>
-	
-	  <div class="wrapper">
+      <div class="row">
+        <div class="span10">
+<div id="content">
+<h1>kb.haeringer.org</h1>
+</br>
 
-		  <div role="main" class="content">
-
-
-
-      <article>
-        <h1><a href="/network-performance-testing-with-iperf.html">Network performance testing with iperf</a></h1>
-        <p>There are numerous tools for network performance testing, e.g. ttcp,
+<ul class="unstyled">
+        <li>
+            <div>
+                <div class="header">
+                    <h2>Network performance testing with iperf</h2>
+                </div>
+                <p class="meta"><small><span><a href="/author/ben/">ben</a> - </span><span>Mo 26 November 2012</span> - <span class="tags"><a href="/tag/Performance Testing/">Performance Testing</a></span></small></p>
+                <div class="entry-content">
+                    <p>There are numerous tools for network performance testing, e.g. ttcp,
 iperf, netperf or netIO. So far I haven't tested them all, but I found
 iperf to be a pretty flexible, easy-to-use and convenient one. Iperf
-needs to be run as server on one side and as client on the other. It is
-available on Linux and Windows.</p>
-<p>There are several ways to install iperf on a Linux machine, depending on
-the distribution. Either just install it via <code>apt-get install iperf</code>
-(Debian), or download a package from <a href="http://iperf.fr/" title="iperf.fr">iperf.fr</a>, or use the source
-code which is described below.</p>
-<p>Download the sources, unpack and <code>cd</code> into the directory:</p>
-<div class="highlight"><pre><span class="n">wget</span> <span class="n">http</span><span class="o">:</span><span class="c1">//sourceforge.net/projects/iperf/files/iperf-2.0.5.tar.gz</span>
-<span class="n">tar</span> <span class="n">xf</span> <span class="n">iperf</span><span class="o">-</span><span class="p">[</span><span class="n">version</span><span class="p">].</span><span class="n">tar</span><span class="p">.</span><span class="n">gz</span>
-<span class="n">cd</span> <span class="n">iperf</span><span class="o">-</span><span class="p">[</span><span class="n">version</span><span class="p">]</span>
+needs to be run as server on one side and as client on ...</p>
+                </div><!-- /.entry-content -->
+                <div class="row">
+                    <div class="span4">
+                    </div>
+                    <div class="span1">
+                        <a class="btn btn-small" href="/network-performance-testing-with-iperf.html" rel="bookmark" title="Permalink to Network performance testing with iperf">Mehr</a>
+                    </div>
+                </div>
+            </div>
+        </li>
+
+        <li><hr /></li>
+        <li>
+            <div>
+                <div class="header">
+                    <h2>Find out the primary nameserver for a domain</h2>
+                </div>
+                <p class="meta"><small><span><a href="/author/ben/">ben</a> - </span><span>Mi 25 Juli 2012</span> - <span class="tags"><a href="/tag/DNS/">DNS</a></span></small></p>
+                <div class="entry-content">
+                    <p>To find out the primary nameserver for a specific domain, there's a very
+handy command in nslookup: <code>set querytype=soa</code></p>
+<p>Example on Windows cmd - look for the "primary name server" output line
+(on Linux it's called "origin"):</p>
+<div class="highlight"><pre><span class="nl">C:</span><span class="err">\</span><span class="n">ben</span><span class="o">&gt;</span><span class="n">nslookup</span>
+<span class="nl">Standardserver:</span>  <span class="n">nameserv</span><span class="p">.</span><span class="n">example</span><span class="p">.</span><span class="n">local</span>
+<span class="nl">Address:</span>  <span class="mf">10.11.12 ...</span></pre></div>
+                </div><!-- /.entry-content -->
+                <div class="row">
+                    <div class="span4">
+                    </div>
+                    <div class="span1">
+                        <a class="btn btn-small" href="/find-out-primary-nameserver-for-domain.html" rel="bookmark" title="Permalink to Find out the primary nameserver for a domain">Mehr</a>
+                    </div>
+                </div>
+            </div>
+        </li>
+
+        <li><hr /></li>
+        <li>
+            <div>
+                <div class="header">
+                    <h2>Juniper JunOS command reference</h2>
+                </div>
+                <p class="meta"><small><span><a href="/author/ben/">ben</a> - </span><span>So 03 Juni 2012</span> - <span class="tags"><a href="/tag/Cisco IOS/">Cisco IOS</a>, <a href="/tag/Command reference/">Command reference</a>, <a href="/tag/Juniper/">Juniper</a>, <a href="/tag/JunOS/">JunOS</a></span></small></p>
+                <div class="entry-content">
+                    <p>When it comes to CLI syntax and handling, some network hardware vendors
+more or less try to copy or at least lean on Cisco's IOS. Some may call
+it lame, but it definitely makes life easier, because you get on an
+unknown device and the chance to just guess ...</p>
+                </div><!-- /.entry-content -->
+                <div class="row">
+                    <div class="span4">
+                    </div>
+                    <div class="span1">
+                        <a class="btn btn-small" href="/juniper-junos-command-reference.html" rel="bookmark" title="Permalink to Juniper JunOS command reference">Mehr</a>
+                    </div>
+                </div>
+            </div>
+        </li>
+
+        <li><hr /></li>
+        <li>
+            <div>
+                <div class="header">
+                    <h2>IP Tables Basics</h2>
+                </div>
+                <p class="meta"><small><span><a href="/author/ben/">ben</a> - </span><span>Di 17 April 2012</span> - <span class="tags"><a href="/tag/Command reference/">Command reference</a>, <a href="/tag/Linux networking/">Linux networking</a></span></small></p>
+                <div class="entry-content">
+                    <p>Here's a short reference on the basic configuration of an IP Tables
+firewall on Debian Linux.</p>
+<p>This assumes basic knowledge in firewalls. As with access lists in
+general, the order of the statements is important and IP Tables
+processes them from top to bottom.</p>
+<p>If unsure with the commands ...</p>
+                </div><!-- /.entry-content -->
+                <div class="row">
+                    <div class="span4">
+                    </div>
+                    <div class="span1">
+                        <a class="btn btn-small" href="/ip-tables-basics.html" rel="bookmark" title="Permalink to IP Tables Basics">Mehr</a>
+                    </div>
+                </div>
+            </div>
+        </li>
+
+        <li><hr /></li>
+        <li>
+            <div>
+                <div class="header">
+                    <h2>SSH public key method</h2>
+                </div>
+                <p class="meta"><small><span><a href="/author/ben/">ben</a> - </span><span>Mi 14 März 2012</span> - <span class="tags"><a href="/tag/Linux networking/">Linux networking</a>, <a href="/tag/Management/">Management</a>, <a href="/tag/PuTTY/">PuTTY</a>, <a href="/tag/SSH/">SSH</a>, <a href="/tag/Windows client/">Windows client</a></span></small></p>
+                <div class="entry-content">
+                    <p>People often still use simple password authentication to log onto
+critical servers via SSH, which is not very secure especially on web
+servers that are directly managed from the outside. A better method is
+the use of asymmetric encryption with public and private keys.</p>
+<p>You create a key pair on ...</p>
+                </div><!-- /.entry-content -->
+                <div class="row">
+                    <div class="span4">
+                    </div>
+                    <div class="span1">
+                        <a class="btn btn-small" href="/ssh-public-key-method.html" rel="bookmark" title="Permalink to SSH public key method">Mehr</a>
+                    </div>
+                </div>
+            </div>
+        </li>
+
+        <li><hr /></li>
+        <li>
+            <div>
+                <div class="header">
+                    <h2>MySQL administration commands</h2>
+                </div>
+                <p class="meta"><small><span><a href="/author/ben/">ben</a> - </span><span>Fr 10 Februar 2012</span> - <span class="tags"><a href="/tag/Command reference/">Command reference</a>, <a href="/tag/MySQL/">MySQL</a>, <a href="/tag/SQL/">SQL</a></span></small></p>
+                <div class="entry-content">
+                    <p>A small command reference for MySQL administration on Linux.<br />
+</p>
+<p>Show MySQL server status:</p>
+<div class="highlight"><pre><span class="c"># /etc/init.d/mysql status</span>
 </pre></div>
 
 
-<p>Compile and install:<!--more--></p>
-<div class="highlight"><pre><span class="p">.</span><span class="o">/</span><span class="n">configure</span>
-<span class="n">make</span> <span class="o">&amp;&amp;</span> <span class="n">make</span> <span class="n">install</span>
+<p>Location of MySQL configuration files:<br />
+<code>/etc/my.cnf</code> - global configuration<br />
+<code>/var/lib/mysql/my.cnf</code> - configuration per database<br />
+<code>~/.my.cnf</code> - configuration per user</p>
+<p>Enter MySQL command line as user root with password ...</p>
+                </div><!-- /.entry-content -->
+                <div class="row">
+                    <div class="span4">
+                    </div>
+                    <div class="span1">
+                        <a class="btn btn-small" href="/mysql-administration-commands.html" rel="bookmark" title="Permalink to MySQL administration commands">Mehr</a>
+                    </div>
+                </div>
+            </div>
+        </li>
+
+        <li><hr /></li>
+        <li>
+            <div>
+                <div class="header">
+                    <h2>Virtualization on ARM with LXC</h2>
+                </div>
+                <p class="meta"><small><span><a href="/author/ben/">ben</a> - </span><span>Do 06 Oktober 2011</span> - <span class="tags"><a href="/tag/ARM/">ARM</a>, <a href="/tag/Debian/">Debian</a>, <a href="/tag/LXC/">LXC</a></span></small></p>
+                <div class="entry-content">
+                    <p>Recently I was searching for a virtualization solution for my ARM-based
+QNAP TS-219P+ NAS device, running Debian Linux on it. On ARM, you cannot
+use standard hypervisors like VMware or XEN (at least not yet), and KVM
+for ARM is also not usable yet. There are bigger devices with x86 ...</p>
+                </div><!-- /.entry-content -->
+                <div class="row">
+                    <div class="span4">
+                    </div>
+                    <div class="span1">
+                        <a class="btn btn-small" href="/virtualization-on-arm-with-lxc.html" rel="bookmark" title="Permalink to Virtualization on ARM with LXC">Mehr</a>
+                    </div>
+                </div>
+            </div>
+        </li>
+
+        <li><hr /></li>
+        <li>
+            <div>
+                <div class="header">
+                    <h2>oVirt relaunch - The Open Virtualization Platform</h2>
+                </div>
+                <p class="meta"><small><span><a href="/author/ben/">ben</a> - </span><span>Fr 23 September 2011</span> - <span class="tags"><a href="/tag/Data center/">Data center</a>, <a href="/tag/Management/">Management</a></span></small></p>
+                <div class="entry-content">
+                    <p>Among open source full virtualization solutions, KVM is currently the
+most promising one. The kernel-based hypervisor is the backend of Red
+Hat's RHEV, which is positioned as a competitor of VMware vSphere
+(hypervisor ESX). Searching for a free open source solution to manage
+KVM, I recently stumpled upon oVirt ...</p>
+                </div><!-- /.entry-content -->
+                <div class="row">
+                    <div class="span4">
+                    </div>
+                    <div class="span1">
+                        <a class="btn btn-small" href="/ovirt-relaunch-the-open-virtualization-platform.html" rel="bookmark" title="Permalink to oVirt relaunch - The Open Virtualization Platform">Mehr</a>
+                    </div>
+                </div>
+            </div>
+        </li>
+
+        <li><hr /></li>
+        <li>
+            <div>
+                <div class="header">
+                    <h2>Configuring a RAID1 with mdadm on Debian Squeeze</h2>
+                </div>
+                <p class="meta"><small><span><a href="/author/ben/">ben</a> - </span><span>Di 20 September 2011</span> - <span class="tags"><a href="/tag/Debian/">Debian</a>, <a href="/tag/RAID/">RAID</a></span></small></p>
+                <div class="entry-content">
+                    <p>Generally I have always thought software raids to be insecure, difficult
+to handle and more a risk than a safety measure. But a RAID1 with the
+Linux software <strong>mdadm</strong> is a safe mirror of your harddisk - in case of
+a HD failure, you can put the remaining disk into any ...</p>
+                </div><!-- /.entry-content -->
+                <div class="row">
+                    <div class="span4">
+                    </div>
+                    <div class="span1">
+                        <a class="btn btn-small" href="/configuring-a-raid1-with-mdadm-on-debian-squeeze.html" rel="bookmark" title="Permalink to Configuring a RAID1 with mdadm on Debian Squeeze">Mehr</a>
+                    </div>
+                </div>
+            </div>
+        </li>
+
+        <li><hr /></li>
+        <li>
+            <div>
+                <div class="header">
+                    <h2>How to set up a DLNA (UPnP) Media Server with MiniDLNA</h2>
+                </div>
+                <p class="meta"><small><span><a href="/author/ben/">ben</a> - </span><span>Fr 24 Juni 2011</span> - <span class="tags"><a href="/tag/DLNA/">DLNA</a>, <a href="/tag/Media server/">Media server</a>, <a href="/tag/UPNP/">UPNP</a></span></small></p>
+                <div class="entry-content">
+                    <p>MiniDLNA is a Linux server software with the aim of being fully
+compliant with DLNA/UPnP-AV clients. It is developed by a NETGEAR
+employee for the ReadyNAS product line. It is a great, lightweight, fast
+and simple alternative to older media servers like TwonkyServer or
+Mediatomb. This is about how ...</p>
+                </div><!-- /.entry-content -->
+                <div class="row">
+                    <div class="span4">
+                    </div>
+                    <div class="span1">
+                        <a class="btn btn-small" href="/how-to-set-up-a-dlna-upnp-media-server-with-minidlna.html" rel="bookmark" title="Permalink to How to set up a DLNA (UPnP) Media Server with MiniDLNA">Mehr</a>
+                    </div>
+                </div>
+            </div>
+        </li>
+
+        <li><hr /></li>
+        <li>
+            <div>
+                <div class="header">
+                    <h2>Configuring an Ethernet bridge on Debian</h2>
+                </div>
+                <p class="meta"><small><span><a href="/author/ben/">ben</a> - </span><span>Do 19 Mai 2011</span> - <span class="tags"><a href="/tag/Debian/">Debian</a>, <a href="/tag/Linux networking/">Linux networking</a></span></small></p>
+                <div class="entry-content">
+                    <p>In some cases it may be needed to configure an Ethernet interface as a
+networking brigde, for example it is a common setup for some
+virtualization hosts/hypervisors. With the bridge it is achieved that
+the guest systems can communicate with the outside through the interface
+eth0, each guest having ...</p>
+                </div><!-- /.entry-content -->
+                <div class="row">
+                    <div class="span4">
+                    </div>
+                    <div class="span1">
+                        <a class="btn btn-small" href="/configuring-an-ethernet-bridge-on-debian.html" rel="bookmark" title="Permalink to Configuring an Ethernet bridge on Debian">Mehr</a>
+                    </div>
+                </div>
+            </div>
+        </li>
+
+        <li><hr /></li>
+        <li>
+            <div>
+                <div class="header">
+                    <h2>Cisco config output without breaks</h2>
+                </div>
+                <p class="meta"><small><span><a href="/author/ben/">ben</a> - </span><span>Fr 04 März 2011</span> - <span class="tags"><a href="/tag/ASA/">ASA</a>, <a href="/tag/Cisco IOS/">Cisco IOS</a>, <a href="/tag/Logging/">Logging</a>, <a href="/tag/PuTTY/">PuTTY</a></span></small></p>
+                <div class="entry-content">
+                    <p>By default, the output when you do a 'sh run' on Cisco devices is
+divided into segments and you have to press 'Space' many times to show
+the whole config. This can be annoying when you have PuTTY logging
+enabled and quickly want to save the running config to your ...</p>
+                </div><!-- /.entry-content -->
+                <div class="row">
+                    <div class="span4">
+                    </div>
+                    <div class="span1">
+                        <a class="btn btn-small" href="/cisco-config-output-without-breaks.html" rel="bookmark" title="Permalink to Cisco config output without breaks">Mehr</a>
+                    </div>
+                </div>
+            </div>
+        </li>
+
+        <li><hr /></li>
+        <li>
+            <div>
+                <div class="header">
+                    <h2>Packet capturing on Cisco ASA</h2>
+                </div>
+                <p class="meta"><small><span><a href="/author/ben/">ben</a> - </span><span>Do 17 Februar 2011</span> - <span class="tags"><a href="/tag/ASA/">ASA</a>, <a href="/tag/Cisco IOS/">Cisco IOS</a>, <a href="/tag/Packet capturing/">Packet capturing</a></span></small></p>
+                <div class="entry-content">
+                    <p>The ASA5500 firewalls offer a great and simple packet capturing tool to
+see if specific packets pass a certain interface.</p>
+<p>First write an access list that defines the source and destination
+address of the packets you want to see:</p>
+<div class="highlight"><pre><span class="n">access</span><span class="o">-</span><span class="n">list</span> <span class="n">CAPACL</span><span class="o">-</span><span class="n">TO</span><span class="o">-</span><span class="n">CME</span> <span class="n">extended</span> <span class="n">permit</span> <span class="n">udp</span> <span class="n">any</span> <span class="n">host</span> <span class="mf">10 ...</span></pre></div>
+                </div><!-- /.entry-content -->
+                <div class="row">
+                    <div class="span4">
+                    </div>
+                    <div class="span1">
+                        <a class="btn btn-small" href="/packet-capturing-on-cisco-asa.html" rel="bookmark" title="Permalink to Packet capturing on Cisco ASA">Mehr</a>
+                    </div>
+                </div>
+            </div>
+        </li>
+
+        <li><hr /></li>
+        <li>
+            <div>
+                <div class="header">
+                    <h2>How to set up OpenVPN on Debian</h2>
+                </div>
+                <p class="meta"><small><span><a href="/author/ben/">ben</a> - </span><span>Do 25 November 2010</span> - <span class="tags"><a href="/tag/Certificates/">Certificates</a>, <a href="/tag/Linux networking/">Linux networking</a>, <a href="/tag/VPN/">VPN</a>, <a href="/tag/Windows client/">Windows client</a></span></small></p>
+                <div class="entry-content">
+                    <p>This is how to set up OpenVPN to connect from a remote Windows client to
+a Debian server.<br />
+</p>
+<p><strong>Download &amp; install OpenVPN on the Debian server</strong></p>
+<div class="highlight"><pre><span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">openvpn</span>
 </pre></div>
 
 
-<p>If you don't have the necessary C++ compiler installed (<code>./configure</code>
-will show if you haven't), you can install one e.g. via
-<code>apt-get install build-essential</code> on Debian, or via
-<code>zypper install gcc-c++</code> on SUSE, etc.</p>
-<p>On Windows, there is no need to install - just download the zip (for
-example from <a href="http://iperf.fr/" title="iperf.fr">iperf.fr</a>), unpack it and <code>cd</code> into its folder.</p>
-<p>When both sides are ready, start the server:</p>
-<div class="highlight"><pre><span class="n">iperf</span> <span class="o">-</span><span class="n">s</span>
+<p>Create two subdirectories "keys":</p>
+<div class="highlight"><pre><span class="n">mkdir</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">openvpn</span><span class="o">/</span><span class="n">keys</span>
+<span class="n">mkdir</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">doc</span><span class="o">/</span><span class="n">openvpn</span><span class="o">/</span><span class="n">examples</span><span class="o">/</span><span class="n">easy</span><span class="o">-</span><span class="n">rsa</span><span class="o">/</span><span class="mf">2.0</span><span class="o">/</span><span class="n">keys</span>
 </pre></div>
 
 
-<p>Launch the client:</p>
-<div class="highlight"><pre><span class="n">iperf</span> <span class="o">-</span><span class="n">c</span> <span class="p">[</span><span class="n">serveraddress</span><span class="p">]</span>
-</pre></div>
+<!--more-->
 
+<p>The program ...</p></!--more-->
+                </div><!-- /.entry-content -->
+                <div class="row">
+                    <div class="span4">
+                    </div>
+                    <div class="span1">
+                        <a class="btn btn-small" href="/how-to-set-up-openvpn-on-debian.html" rel="bookmark" title="Permalink to How to set up OpenVPN on Debian">Mehr</a>
+                    </div>
+                </div>
+            </div>
+        </li>
 
-<p>This will initiate a short test with the standard parameters that will
-show you if everything works.</p>
-<p>Now you can begin tuning some parameters. Show a list of all options:</p>
-<div class="highlight"><pre><span class="n">iperf</span> <span class="o">-</span><span class="n">h</span>
-</pre></div>
+        <li><hr /></li>
+        <li>
+            <div>
+                <div class="header">
+                    <h2>Using Robocopy for backups</h2>
+                </div>
+                <p class="meta"><small><span><a href="/author/ben/">ben</a> - </span><span>So 10 Oktober 2010</span> - <span class="tags"><a href="/tag/Backup/">Backup</a>, <a href="/tag/Windows client/">Windows client</a></span></small></p>
+                <div class="entry-content">
+                    <p>Since Windows Vista, Robocopy is the 'official' CLI tool within Windows
+to make full, reliable incremental backups. It has many options, but for
+basic operation, only few of them are needed. For a simple mirror of one
+directory or partition, you only need the parameter <code>/MIR</code>:</p>
+<div class="highlight"><pre><span class="n">robocopy</span> <span class="n">D</span><span class="o">:</span><span class="n">Data</span> <span class="n">H ...</span></pre></div>
+                </div><!-- /.entry-content -->
+                <div class="row">
+                    <div class="span4">
+                    </div>
+                    <div class="span1">
+                        <a class="btn btn-small" href="/using-robocopy-for-backups.html" rel="bookmark" title="Permalink to Using Robocopy for backups">Mehr</a>
+                    </div>
+                </div>
+            </div>
+        </li>
 
+        <li><hr /></li>
+        <li>
+            <div>
+                <div class="header">
+                    <h2>Define commands for later execution / auto-restore backup configurations</h2>
+                </div>
+                <p class="meta"><small><span><a href="/author/ben/">ben</a> - </span><span>Di 20 Juli 2010</span> - <span class="tags"><a href="/tag/ASA/">ASA</a>, <a href="/tag/Backup/">Backup</a>, <a href="/tag/Cisco IOS/">Cisco IOS</a></span></small></p>
+                <div class="entry-content">
+                    <p>Sometimes it can be critical to configure a remote device, e.g. if you
+have to configure something on the network interface over which you
+reach the machine. But there are ways to ensure that you won't be locked
+out forever in case something goes wrong.</p>
+<p><strong>On Linux</strong>, there ...</p>
+                </div><!-- /.entry-content -->
+                <div class="row">
+                    <div class="span4">
+                    </div>
+                    <div class="span1">
+                        <a class="btn btn-small" href="/define-commands-for-later-execution-auto-restore-backup-configurations.html" rel="bookmark" title="Permalink to Define commands for later execution / auto-restore backup configurations">Mehr</a>
+                    </div>
+                </div>
+            </div>
+        </li>
 
-<p>In the following example, I use the following parameters:<br />
-- Use server IP address 10.1.2.10<br />
-- Run 2 threads in parallel<br />
-- Report the bandwidth with an interval of 10 seconds<br />
-- Report in format Mbits<br />
-- Run the test for 900 seconds<br />
-- Use a TCP window size of 120KB</p>
-<div class="highlight"><pre><span class="n">iperf</span> <span class="o">-</span><span class="n">c</span> <span class="mf">10.1.2.10</span> <span class="o">-</span><span class="n">P</span> <span class="mi">2</span> <span class="o">-</span><span class="n">i</span> <span class="mi">10</span> <span class="o">-</span><span class="n">f</span> <span class="n">m</span> <span class="o">-</span><span class="n">t</span> <span class="mi">900</span> <span class="o">-</span><span class="n">w</span> <span class="mi">120</span><span class="n">k</span>
-</pre></div>
+        <li><hr /></li>
+        <li>
+            <div>
+                <div class="header">
+                    <h2>Getting a new IOS on a Cisco 836 router</h2>
+                </div>
+                <p class="meta"><small><span><a href="/author/ben/">ben</a> - </span><span>Di 15 Juni 2010</span> - <span class="tags"><a href="/tag/Cisco IOS/">Cisco IOS</a>, <a href="/tag/VLAN/">VLAN</a></span></small></p>
+                <div class="entry-content">
+                    <p>Some time ago I was struggling with getting a new IOS version on a 836
+router. From the newer 800 series routers, 876 or 881 etc., I was used
+to configure a VLAN on one of the Ethernet interfaces; then you're able
+to reach the interface via TFTP at ...</p>
+                </div><!-- /.entry-content -->
+                <div class="row">
+                    <div class="span4">
+                    </div>
+                    <div class="span1">
+                        <a class="btn btn-small" href="/getting-a-new-ios-on-a-cisco-836-router.html" rel="bookmark" title="Permalink to Getting a new IOS on a Cisco 836 router">Mehr</a>
+                    </div>
+                </div>
+            </div>
+        </li>
 
+        <li><hr /></li>
+        <li>
+            <div>
+                <div class="header">
+                    <h2>Access an NTFS USB drive over a Samba share</h2>
+                </div>
+                <p class="meta"><small><span><a href="/author/ben/">ben</a> - </span><span>Do 08 April 2010</span> - <span class="tags"><a href="/tag/SMB/">SMB</a>, <a href="/tag/USB/">USB</a></span></small></p>
+                <div class="entry-content">
+                    <p>I needed to plug an NTFS formatted USB harddisk into my Debian home server (with Samba
+file services already running on it) and access it from my PCs in the network. 
+To achieve full read/write access for the Windows users, you need the driver NTFS-3G.</p>
+<p>Install ntfs-3g</p>
+<div class="highlight"><pre><span class="n">apt</span><span class="o">-</span><span class="n">get ...</span></pre></div>
+                </div><!-- /.entry-content -->
+                <div class="row">
+                    <div class="span4">
+                    </div>
+                    <div class="span1">
+                        <a class="btn btn-small" href="/access-an-ntfs-usb-drive-over-a-samba-share.html" rel="bookmark" title="Permalink to Access an NTFS USB drive over a Samba share">Mehr</a>
+                    </div>
+                </div>
+            </div>
+        </li>
 
-<p><span style="font-size:x-large;"><strong>Tips</strong></span></p>
-<p><strong>Finding the right TCP window size</strong></p>
-<p>The TCP window size should be set according to the link you are testing.
-Calculate the right TCP window size:</p>
-<p><em>bandwith in bit * latency / 8192</em></p>
-<p>e.g. 1Gig Link with a latency of 2ms: <em>1000000 * 2 / 8192 = 244KB</em></p>
-<p>So <code>-w 244k</code> is the value to start with when optimizing the TCP window
-size.</p>
-<p><strong>Check if your MSS is right</strong></p>
-<p>Using the -m option on the server will show the MSS (Maximum Segment
-Size) that was used for a connection. On a standard Ethernet link with
-an MTU of 1500, the MSS should be somewhere around 1460.</p>
-<div class="highlight"><pre><span class="nl">serverXY:</span><span class="o">~</span> <span class="err">#</span> <span class="n">iperf</span> <span class="o">-</span><span class="n">s</span> <span class="o">-</span><span class="n">m</span>
-<span class="o">------------------------------------------------------------</span>
-<span class="n">Server</span> <span class="n">listening</span> <span class="n">on</span> <span class="n">TCP</span> <span class="n">port</span> <span class="mi">5001</span>
-<span class="n">TCP</span> <span class="n">window</span> <span class="n">size</span><span class="o">:</span> <span class="mf">85.3</span> <span class="n">KByte</span> <span class="p">(</span><span class="k">default</span><span class="p">)</span>
-<span class="o">------------------------------------------------------------</span>
-<span class="p">[</span>  <span class="mi">4</span><span class="p">]</span> <span class="n">local</span> <span class="mf">10.1.2.10</span> <span class="n">port</span> <span class="mi">5001</span> <span class="n">connected</span> <span class="n">with</span> <span class="mf">172.16.110.10</span> <span class="n">port</span> <span class="mi">4373</span>
-<span class="p">[</span> <span class="n">ID</span><span class="p">]</span> <span class="n">Interval</span>       <span class="n">Transfer</span>     <span class="n">Bandwidth</span>
-<span class="p">[</span>  <span class="mi">4</span><span class="p">]</span>  <span class="mf">0.0</span><span class="o">-</span><span class="mf">10.0</span> <span class="n">sec</span>   <span class="mi">259</span> <span class="n">MBytes</span>   <span class="mi">217</span> <span class="n">Mbits</span><span class="o">/</span><span class="n">sec</span>
-<span class="p">[</span>  <span class="mi">4</span><span class="p">]</span> <span class="n">MSS</span> <span class="n">size</span> <span class="mi">1460</span> <span class="n">bytes</span> <span class="p">(</span><span class="n">MTU</span> <span class="mi">1500</span> <span class="n">bytes</span><span class="p">,</span> <span class="n">ethernet</span><span class="p">)</span>
-</pre></div>
+        <li><hr /></li>
+        <li>
+            <div>
+                <div class="header">
+                    <h2>Share USB Printer on the network via CUPS and IPP</h2>
+                </div>
+                <p class="meta"><small><span><a href="/author/ben/">ben</a> - </span><span>Fr 19 März 2010</span> - <span class="tags"><a href="/tag/ARM/">ARM</a>, <a href="/tag/IPP/">IPP</a>, <a href="/tag/Printing/">Printing</a>, <a href="/tag/Windows client/">Windows client</a></span></small></p>
+                <div class="entry-content">
+                    <p>The scenario: I have a USB printer (Samsung ML-1915) and want to be able
+to use it from all workstations in the network. As it is not a network
+printer, I connect it to my NAS (Debian/Ubuntu Server) and share the
+printer via CUPS (Common UNIX Printing System). You ...</p>
+                </div><!-- /.entry-content -->
+                <div class="row">
+                    <div class="span4">
+                    </div>
+                    <div class="span1">
+                        <a class="btn btn-small" href="/share-usb-printer-on-the-network-via-cups-and-ipp.html" rel="bookmark" title="Permalink to Share USB Printer on the network via CUPS and IPP">Mehr</a>
+                    </div>
+                </div>
+            </div>
+        </li>
 
+        <li><hr /></li>
+        <li>
+            <div>
+                <div class="header">
+                    <h2>Configure lost default route in Debian</h2>
+                </div>
+                <p class="meta"><small><span><a href="/author/ben/">ben</a> - </span><span>Mo 04 Januar 2010</span> - <span class="tags"><a href="/tag/Debian/">Debian</a>, <a href="/tag/Linux networking/">Linux networking</a></span></small></p>
+                <div class="entry-content">
+                    <p>Recently, my Debian server had no internet connection anymore and I
+didn't know why.</p>
+<p>I was able to ping the default gateway, and it was also configured in
+/etc/network/interfaces.</p>
+<p>But when I did a traceroute to any internet address, I got a "connect:
+Network is unreachable" immediately ...</p>
+                </div><!-- /.entry-content -->
+                <div class="row">
+                    <div class="span4">
+                    </div>
+                    <div class="span1">
+                        <a class="btn btn-small" href="/configure-lost-default-route-in-debian.html" rel="bookmark" title="Permalink to Configure lost default route in Debian">Mehr</a>
+                    </div>
+                </div>
+            </div>
+        </li>
 
-<p><strong>Use iperf together with TTCP on Cisco routers</strong></p>
-<p>Iperf even works together with TTCP (a similar performance testing
-tool), which is very useful because Cisco routers have TTCP implemented
-on some IOS versions! On the router, just issue the <code>ttcp</code>command and
-confirm the default settings. As you will see, TTCP uses port 5001 per
-default, too, so you can just connect the iperf client on the other side
-with the standard settings.</p>
-<p>One limitation is that you cannot use the parallel streams option, but
-there is a workaround. Open two (or more) SSH sessions to the router and
-start TTCP receivers/servers with different ports on each one - the same
-on the client; two instances of iperf with the different ports but the
-same IP address.</p>
-      </article>
+        <li><hr /></li>
+        <li>
+            <div>
+                <div class="header">
+                    <h2>Transfer PuTTY settings</h2>
+                </div>
+                <p class="meta"><small><span><a href="/author/ben/">ben</a> - </span><span>Fr 04 Dezember 2009</span> - <span class="tags"><a href="/tag/PuTTY/">PuTTY</a></span></small></p>
+                <div class="entry-content">
+                    <p>If you would like to transfer your saved PuTTY configuration to another
+Windows machine, you might wonder where this configuration is saved.
+PuTTY does not use an INI file or something similar, but stores its
+settings in the Registry.</p>
+<p>Open the registry by running regedit and search for "SimonTatham" (the ...</p>
+                </div><!-- /.entry-content -->
+                <div class="row">
+                    <div class="span4">
+                    </div>
+                    <div class="span1">
+                        <a class="btn btn-small" href="/transfer-putty-settings.html" rel="bookmark" title="Permalink to Transfer PuTTY settings">Mehr</a>
+                    </div>
+                </div>
+            </div>
+        </li>
+
+        <li><hr /></li>
+        <li>
+            <div>
+                <div class="header">
+                    <h2>Vi Editor commands</h2>
+                </div>
+                <p class="meta"><small><span><a href="/author/ben/">ben</a> - </span><span>Fr 18 September 2009</span> - <span class="tags"><a href="/tag/Command reference/">Command reference</a></span></small></p>
+                <div class="entry-content">
+                    <table style="border-collapse: collapse; table-layout: fixed; width: 351pt;" border="0" width="468" cellspacing="0" cellpadding="0">
+<tbody>
+<tr style="height: 15pt;">
+<td class="xl6421779" style="height: 15pt; width: 171pt;" colspan="3" width="228" height="20">
+**Quit & Save**
+
+</td>
+<td class="xl1521779" style="width: 60pt;" width="80">
+</td>
+<td class="xl1521779" style="width: 60pt;" width="80">
+</td>
+<td class="xl1521779" style="width: 60pt;" width="80">
+</td>
+</tr>
+<tr style="height: 15pt;">
+<td class="xl6321779" style="height: 15pt;" height="20">
+</td>
+<td class="xl1521779">
+</td>
+<td class="xl1521779">
+</td>
+<td class="xl1521779">
+</td>
+<td class="xl1521779">
+</td>
+<td class="xl1521779">
+</td>
+</tr>
+<tr style="height: 15pt;">
+<td class="xl1521779" style="height: 15pt;" height="20">
+:w
+
+</td>
+<td class="xl1521779" colspan="2">
+Save
+
+</td>
+<td class="xl1521779">
+</td>
+<td class="xl1521779">
+</td>
+<td class="xl1521779">
+</td>
+</tr>
+<tr style="height: 15pt;">
+<td class="xl1521779" style="height: 15pt;" height="20">
+:x
+
+</td>
+<td class="xl1521779" colspan="2">
+Save & exit
+
+</td>
+<td class="xl1521779">
+</td>
+<td class="xl1521779">
+</td>
+<td class="xl1521779">
+</td>
+</tr>
+<tr style="height: 15pt;">
+<td class="xl1521779" style="height: 15pt;" height="20">
+:q
+
+</td>
+<td class="xl1521779" colspan="4">
+Quit if there have been no changes
+
+</td>
+<td class="xl1521779">
+</td>
+</tr>
+<tr style="height: 15pt;">
+<td class="xl1521779" style="height: 15pt;" height="20">
+:q!
+
+</td>
+<td class="xl1521779" colspan="3">
+Quit & discard changes
+
+</td>
+<td class="xl1521779">
+</td>
+<td class="xl1521779">
+</td>
+</tr>
+<tr style="height: 15pt;">
+<td class="xl1521779" style="height: 15pt;" height="20">
+</td>
+<td class="xl1521779">
+</td>
+<td class="xl1521779">
+</td>
+<td class="xl1521779">
+</td>
+<td class="xl1521779">
+</td>
+<td class="xl1521779">
+</td>
+</tr>
+<tr style="height: 15pt;">
+<td class="xl1521779" style="height: 15pt;" height="20">
+</td>
+<td class="xl1521779">
+</td>
+<td class="xl1521779">
+</td>
+<td class="xl1521779">
+</td>
+<td class="xl1521779">
+</td>
+<td class="xl1521779">
+</td>
+</tr>
+<tr style="height: 15pt;">
+<td class="xl6421779" style="height: 15pt;" colspan="3" height="20">
+**Insert / Edit**
+
+</td>
+<td class="xl1521779">
+</td>
+<td class="xl1521779">
+</td>
+<td class="xl1521779">
+</td>
+</tr>
+<tr style="height: 15pt;">
+<td class="xl6321779" style="height: 15pt;" height="20">
+</td>
+<td class="xl1521779">
+</td>
+<td class="xl1521779">
+</td>
+<td class="xl1521779">
+</td>
+<td class="xl1521779">
+</td>
+<td class="xl1521779">
+</td>
+</tr>
+<tr style="height: 15pt;">
+<td class="xl1521779" style="height: 15pt;" height="20">
+i
+
+</td>
+<td class="xl1521779" colspan="3">
+Insert mode
+
+</td>
+<td class="xl1521779">
+</td>
+<td class="xl1521779">
+</td>
+<td class="xl1521779">
+</td>
+</tr>
+<tr style="height: 15pt;">
+<td class="xl1521779" style="height: 15pt;" height="20">
+I
+
+</td>
+<td class="xl1521779" colspan="3">
+Insert at beginning of line
+
+</td>
+<td class="xl1521779">
+</td>
+<td class="xl1521779">
+</td>
+<td class="xl1521779">
+</td>
+</tr>
+<tr style="height: 15pt;">
+<td class="xl1521779" style="height: 15pt;" height="20">
+A
+
+</td>
+<td class="xl1521779" colspan="3">
+Append to end of line
+
+</td>
+<td class="xl1521779">
+</td>
+<td class="xl1521779">
+</td>
+<td class="xl1521779">
+</td>
+</tr>
+<tr style="height: 15pt;">
+<td class="xl1521779" style="height: 15pt;" height="20">
+R
+
+</td>
+<td class="xl1521779" colspan="3">
+Replace mode
+
+</td>
+<td class="xl1521779">
+</td>
+<td class="xl1521779">
+</td>
+<td class="xl1521779">
+</td>
+</tr>
+<tr style="height: 15pt;">
+<td class="xl1521779" style="height: 15pt;" height="20">
+r
+
+</td>
+<td class="xl1521779" colspan="3">
+Replace a single character
+
+</td>
+<td class="xl1521779">
+</td>
+<td class="xl1521779">
+</td>
+<td class="xl1521779">
+</td>
+</tr>
+<tr style="height: 15pt;">
+<td class="xl1521779" style="height: 15pt;" height="20">
+Esc
+
+</td>
+<td class="xl1521779" colspan="3">
+Exit insert or replace mode ...</td></tr></tbody></table>
+                </div><!-- /.entry-content -->
+                <div class="row">
+                    <div class="span4">
+                    </div>
+                    <div class="span1">
+                        <a class="btn btn-small" href="/vi-editor-commands.html" rel="bookmark" title="Permalink to Vi Editor commands">Mehr</a>
+                    </div>
+                </div>
+            </div>
+        </li>
+
+        <li><hr /></li>
+        <li>
+            <div>
+                <div class="header">
+                    <h2>Linux shell commands (categorized)</h2>
+                </div>
+                <p class="meta"><small><span><a href="/author/ben/">ben</a> - </span><span>Mi 09 September 2009</span> - <span class="tags"><a href="/tag/Command reference/">Command reference</a>, <a href="/tag/Shell/">Shell</a></span></small></p>
+                <div class="entry-content">
+                    <table style="border-collapse: collapse; table-layout: fixed; width: 419pt;" width="558" border="0" cellspacing="0" cellpadding="0">
+<colgroup>
+<col style="width: 101pt;" width="134">
+</col>
+<col style="width: 318pt;" width="424">
+</col>
+</colgroup>
+<tbody>
+<tr style="height: 10pt;">
+<td class="xl632619" style="height: 10pt; width: 419pt;" colspan="2" width="558" height="15">
+**Help**
+
+</td>
+</tr>
+<tr style="height: 10pt;">
+<td class="xl102619" style="height: 10pt;" height="15">
+</td>
+<td class="xl102619">
+</td>
+</tr>
+<tr style="height: 10pt;">
+<td class="xl102619" style="height: 10pt;" height="15">
+<span class="font52619">*command*</span><span
+class="font02619">--help</span>
+
+</td>
+<td class="xl102619">
+show a brief help text
+
+</td>
+</tr>
+<tr style="height: 10pt;">
+<td class="xl102619" style="height: 10pt;" height="15">
+man <span class="font52619">*command*</span>
+
+</td>
+<td class="xl102619">
+show the man page of a command
+
+</td>
+</tr>
+<tr style="height: 10pt;">
+<td class="xl102619" style="height: 10pt;" height="15">
+</td>
+<td class="xl102619">
+</td>
+</tr>
+<tr style="height: 10pt;">
+<td class="xl102619" style="height: 10pt;" height="15">
+</td>
+<td class="xl102619">
+</td>
+</tr>
+<tr style="height: 10pt;">
+<td class="xl632619" style="height: 10pt;" colspan="2" height="15">
+**Files and directories**
+
+</td>
+</tr>
+<tr style="height: 10pt;">
+<td class="xl102619" style="height: 10pt;" height="15">
+</td>
+<td class="xl102619">
+</td>
+</tr>
+<tr style="height: 10pt;">
+<td class="xl102619" style="height: 10pt;" height="15">
+cat
+
+</td>
+<td class="xl102619">
+display the contents of a file
+
+</td>
+</tr>
+<tr style="height: 10pt;">
+<td class="xl102619" style="height: 10pt;" height="15">
+cd
+
+</td>
+<td class="xl102619">
+change to the home directory
+
+</td>
+</tr>
+<tr style="height: 10pt;">
+<td class="xl102619" style="height: 10pt;" height="15">
+cd <span class="font52619">*directory*</span>
+
+</td>
+<td class="xl102619">
+change to this directory
+
+</td>
+</tr>
+<tr style="height: 10pt;">
+<td class="xl102619" style="height: 10pt;" height="15">
+cd ..
+
+</td>
+<td class="xl102619">
+change one directory up
+
+</td>
+</tr>
+<tr style="height: 10pt;">
+<td class="xl102619" style="height: 10pt;" height="15">
+cd /
+
+</td>
+<td class="xl102619">
+change to ...</td></tr></tbody></table>
+                </div><!-- /.entry-content -->
+                <div class="row">
+                    <div class="span4">
+                    </div>
+                    <div class="span1">
+                        <a class="btn btn-small" href="/linux-shell-commands-categorized.html" rel="bookmark" title="Permalink to Linux shell commands (categorized)">Mehr</a>
+                    </div>
+                </div>
+            </div>
+        </li>
+
+        <li><hr /></li>
+</ul><!-- /#posts-list -->
+</div><!-- /#content -->
+        </div>
+        <div class="span2">
+          <div class="well">
+            <ul class="nav nav-list">
+              <li class="nav-header">Blog</li>
+              <li class="active"><a href="">Home</a></li>
+              <li ><a href="/tags/">Tags</a></li>
+              <li ><a href="/archives/">Archive</a></li>
+              <li class="nav-header">Pages</li>
+              <li><a href="/pages/about.html">About</a></li>
+            </ul>
+          </div><!-- /#menu -->
+        </div>
+      </div>
 
       <hr />
 
-        <div>
-          <h3>Last posts</h3>
-          <ol class="archive">
-    
+      <div class="row">
+        <div class="span12">
+          <div id="about">
+            <p>Proudly powered by <a href="http://twitter.github.com/bootstrap/">bootstrap</a>, <a href="http://docs.notmyidea.org/alexis/pelican/">pelican</a>, <a href="http://python.org">python</a> and <a href="http://www.julo.ch/about/">Alex</a></p>
+          </div><!-- /#about -->
+        </div><!-- /#contentinfo -->
+      </div>
+    </div>
 
 
-      <li>
-<a href="/find-out-primary-nameserver-for-domain.html" rel="bookmark" title="Permalink to Find out the primary nameserver for a domain">Find out the primary nameserver for a domain</a>
-  <time datetime="2012-07-25T14:48:00" pubdate>Mi 25 Juli 2012</time>
-<p class="tags">tags: <a href="/tag/dns.html">DNS</a></p></a>      </li>
-
-
-      <li>
-<a href="/juniper-junos-command-reference.html" rel="bookmark" title="Permalink to Juniper JunOS command reference">Juniper JunOS command reference</a>
-  <time datetime="2012-06-03T19:43:00" pubdate>So 03 Juni 2012</time>
-<p class="tags">tags: <a href="/tag/cisco-ios.html">Cisco IOS</a><a href="/tag/command-reference.html">Command reference</a><a href="/tag/juniper.html">Juniper</a><a href="/tag/junos.html">JunOS</a></p></a>      </li>
-
-
-      <li>
-<a href="/ip-tables-basics.html" rel="bookmark" title="Permalink to IP Tables Basics">IP Tables Basics</a>
-  <time datetime="2012-04-17T15:22:00" pubdate>Di 17 April 2012</time>
-<p class="tags">tags: <a href="/tag/command-reference.html">Command reference</a><a href="/tag/linux-networking.html">Linux networking</a></p></a>      </li>
-
-
-      <li>
-<a href="/ssh-public-key-method.html" rel="bookmark" title="Permalink to SSH public key method">SSH public key method</a>
-  <time datetime="2012-03-14T18:06:00" pubdate>Mi 14 März 2012</time>
-<p class="tags">tags: <a href="/tag/linux-networking.html">Linux networking</a><a href="/tag/management.html">Management</a><a href="/tag/putty.html">PuTTY</a><a href="/tag/ssh.html">SSH</a><a href="/tag/windows-client.html">Windows client</a></p></a>      </li>
-
-
-      <li>
-<a href="/mysql-administration-commands.html" rel="bookmark" title="Permalink to MySQL administration commands">MySQL administration commands</a>
-  <time datetime="2012-02-10T20:54:00" pubdate>Fr 10 Februar 2012</time>
-<p class="tags">tags: <a href="/tag/command-reference.html">Command reference</a><a href="/tag/mysql.html">MySQL</a><a href="/tag/sql.html">SQL</a></p></a>      </li>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-          </ol>
-        </div>
-
-		  </div>	
-		  
-		  <div class="sidebar">
-
-	        <nav>
-	          <h2>Categories</h2>
-	          <ul>
-	              <li ><a href="/category/cisco.html">Cisco</a></li>
-	              <li ><a href="/category/linux.html">Linux</a></li>
-	              <li ><a href="/category/linux-networking.html">Linux, Networking</a></li>
-	              <li ><a href="/category/linux-networking-windows.html">Linux, Networking, Windows</a></li>
-	              <li ><a href="/category/linux-virtualization.html">Linux, Virtualization</a></li>
-	              <li ><a href="/category/networking.html">Networking</a></li>
-	              <li ><a href="/category/virtualization.html">Virtualization</a></li>
-	              <li ><a href="/category/windows.html">Windows</a></li>
-	          </ul>
-	        </nav>
-
-
-
-		  </div>
-
-	  </div>
-
-      <footer>
-		<p role="contentinfo">
-		  © 2013 ben - Proudly powered by <a href="http://alexis.notmyidea.org/pelican/">pelican</a>. Theme <a href="https://github.com/fle/pelican-simplegrey">pelican-simplegrey</a>.
-    	</p>
-
-	  </footer>	
-
-	</div>
-	
-
-</body>
+  </body>
 </html>

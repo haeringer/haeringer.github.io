@@ -1,45 +1,28 @@
-<!doctype html>
-<html lang="">	
-<head>
-	<meta charset="utf-8"/>
-	<title>Configure lost default route in Debian - kb</title>	
-	<meta name="author" content="ben">
-	
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <title>Configure lost default route in Debian - kb.haeringer.org</title>
+    <link href="http://fonts.googleapis.com/css?family=Arimo:400,700|Inika" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="/theme/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="/theme/pastie.css" />
+    <link href="/" type="application/atom+xml" rel="alternate" title="kb.haeringer.org Atom Feed" />
 
-	<meta name="description" content="Recently, my Debian server had no internet connection anymore and I didn't know why. I was able to ping the default gateway, and it was also configured in /etc/network/interfaces. But when I did a traceroute to any internet address, I got a "connect: Network is unreachable" immediately ...">
 
+  </head>
 
-	<link rel="top" href="#" /><link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,300italic,400italic,600italic|Source+Code+Pro' rel='stylesheet' type='text/css'></link>
-	<link rel="stylesheet" href="/theme/css/main.css" type="text/css" />
-		
-
-</head>
-	
-<body>
-
+  <body>
     <div class="container">
-	  
-	  <header role="banner">
-	    <div class="feeds">
-	    </div>
-		<a href="" class="title">kb</a>
-      </header>
-	
-	  <div class="wrapper">
-
-		  <div role="main" class="content">
-	<article class="full">
-			
-		<h1>Configure lost default route in Debian</h1>
-		
-<div class="metadata">
-  <time datetime="2010-01-04T15:37:00" pubdate>Mo 04 Januar 2010</time>
-    <address class="vcard author">
-      by <a class="url fn" href="/author/ben.html">ben</a>
-    </address>
-  in <a href="/category/networking.html">Networking</a>
-<p class="tags">tagged <a href="/tag/debian.html">Debian</a>, <a href="/tag/linux-networking.html">Linux networking</a></p></div>		
-		<p>Recently, my Debian server had no internet connection anymore and I
+      <div class="row">
+        <div class="span10">
+<div id="content">
+    <div class="header">
+        <h1>Configure lost default route in Debian</h1>
+	</br>
+    </div>
+    <p class="meta"><small><span><a href="/author/ben/">ben</a> - </span><span>Mo 04 Januar 2010</span> - <span class="tags"><a href="/tag/Debian/">Debian</a>, <a href="/tag/Linux networking/">Linux networking</a></span></small></p>
+        <div class="entry-content">
+        <p>Recently, my Debian server had no internet connection anymore and I
 didn't know why.</p>
 <p>I was able to ping the default gateway, and it was also configured in
 /etc/network/interfaces.</p>
@@ -65,49 +48,35 @@ will add it to this post.</p>
 <p>Edit: We had a power outage due to construction works, and when adding
 the default route via <code>route add ..</code>, it will be lost after a reboot.
 However, I think it should have been set anyway when configured in
-/etc/network/interfaces...</p>	
+/etc/network/interfaces...</p>
+        </div><!-- /.entry-content -->
+</div>
+        </div>
+        <div class="span2">
+          <div class="well">
+            <ul class="nav nav-list">
+              <li class="nav-header">Blog</li>
+              <li ><a href="">Home</a></li>
+              <li ><a href="/tags/">Tags</a></li>
+              <li ><a href="/archives/">Archive</a></li>
+              <li class="nav-header">Pages</li>
+              <li><a href="/pages/about.html">About</a></li>
+            </ul>
+          </div><!-- /#menu -->
+        </div>
+      </div>
 
-	</article>
+      <hr />
 
-    <p>
-	<a href="https://twitter.com/share" class="twitter-share-button" data-via="" data-lang="en" data-size="large" data-related="">Tweet</a>
-	<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-	</p>
-
-
-		  </div>	
-		  
-		  <div class="sidebar">
-
-	        <nav>
-	          <h2>Categories</h2>
-	          <ul>
-	              <li ><a href="/category/cisco.html">Cisco</a></li>
-	              <li ><a href="/category/linux.html">Linux</a></li>
-	              <li ><a href="/category/linux-networking.html">Linux, Networking</a></li>
-	              <li ><a href="/category/linux-networking-windows.html">Linux, Networking, Windows</a></li>
-	              <li ><a href="/category/linux-virtualization.html">Linux, Virtualization</a></li>
-	              <li class="active"><a href="/category/networking.html">Networking</a></li>
-	              <li ><a href="/category/virtualization.html">Virtualization</a></li>
-	              <li ><a href="/category/windows.html">Windows</a></li>
-	          </ul>
-	        </nav>
+      <div class="row">
+        <div class="span12">
+          <div id="about">
+            <p>Proudly powered by <a href="http://twitter.github.com/bootstrap/">bootstrap</a>, <a href="http://docs.notmyidea.org/alexis/pelican/">pelican</a>, <a href="http://python.org">python</a> and <a href="http://www.julo.ch/about/">Alex</a></p>
+          </div><!-- /#about -->
+        </div><!-- /#contentinfo -->
+      </div>
+    </div>
 
 
-
-		  </div>
-
-	  </div>
-
-      <footer>
-		<p role="contentinfo">
-		  © 2013 ben - Proudly powered by <a href="http://alexis.notmyidea.org/pelican/">pelican</a>. Theme <a href="https://github.com/fle/pelican-simplegrey">pelican-simplegrey</a>.
-    	</p>
-
-	  </footer>	
-
-	</div>
-	
-
-</body>
+  </body>
 </html>
